@@ -802,6 +802,15 @@ html{scroll-snap-type:y proximity}
 html{scroll-snap-type:none!important}
 *{animation:none!important}
 </style>
+<style id="figma-fullbleed">
+/* html.to.design не понимает border-image: даём секциям настоящий фон на всю ширину */
+main .wrap{max-width:none!important;padding:0!important;margin:0!important}
+main .wrap > *, .band .wrap > *{padding-left:max(24px,calc((100% - 1000px) / 2))!important;padding-right:max(24px,calc((100% - 1000px) / 2))!important;box-sizing:border-box}
+.sec.tint,.hub{border-image:none!important;background:var(--tint)!important}
+.hub{background:var(--blue)!important}
+.band{background:var(--band)!important}
+.footer{margin-top:0!important;padding-top:48px;padding-bottom:48px}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
