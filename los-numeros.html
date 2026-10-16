@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Los números · che, charlamos?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3d5afe;
+    --blue-deep:#2b46d6;
+    --navy:#1b1b3a;
+    --ink:#2c2c40;
+    --muted:#8a8aa3;
+    --line:#e8e8f4;
+    --soft:#eef1fe;
+    --pink:#ec2d7a;
+    --pink-soft:#fde6f0;
+    --green:#15a05a;
+    --green-bg:#dcf7e7;
+    --green-bd:#9ce0b9;
+    --red:#dc2b2b;
+    --red-bg:#fdeaea;
+    --red-bd:#f3b9b9;
+    --amber:#fbcb45;
+    --radius:22px;
+    --shadow:0 1px 2px rgba(27,27,58,.04);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:#fff;color:var(--ink);
+    font-family:'Manrope',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 96px}
+
+  /* ---------- header ---------- */
+  .topbar{position:sticky;top:0;padding-top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .inner{max-width:760px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:10px}
+  .brand{display:flex;align-items:baseline;gap:8px;font-weight:800;color:var(--navy);font-size:19px}
+  .brand .che{background:var(--blue);color:#fff;padding:3px 12px;border-radius:999px;font-size:17px}
+  .brand .sub{color:var(--muted);font-weight:600;font-size:15px;margin-left:2px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:40px 0 8px}
+  h1{font-size:40px;line-height:1.08;font-weight:800;color:var(--navy);margin:0 0 12px;letter-spacing:-.02em}
+  .hero p{font-size:18px;color:var(--muted);margin:0;max-width:60ch}
+  .hero p b{color:var(--ink);font-weight:700}
+
+  .backbtn{display:inline-flex;align-items:center;gap:8px;margin:28px 0 0;padding:11px 20px;border:1.5px solid var(--blue);color:var(--blue);background:#fff;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer;font-family:inherit}
+  .backbtn:hover{background:var(--soft)}
+
+  /* ---------- section label ---------- */
+  .eyebrow{display:flex;align-items:center;gap:14px;margin:52px 0 20px;color:var(--muted);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  .badge{display:inline-block;background:var(--pink);color:#fff;font-weight:800;font-size:12px;letter-spacing:.06em;padding:7px 14px;border-radius:999px;text-transform:uppercase;margin-bottom:14px}
+
+  /* ---------- cards ---------- */
+  .card{border:1.5px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin:14px 0;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 6px;font-size:21px;color:var(--navy);font-weight:800}
+  .lead{color:var(--ink)}
+  .lead b{color:var(--navy)}
+
+  .steps{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+  .steps li{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:14px;padding:12px 15px}
+  .steps .n{flex:none;width:26px;height:26px;border-radius:8px;background:var(--blue);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center;margin-top:1px}
+  .steps b{color:var(--navy)}
+
+  /* ---------- conjugation ---------- */
+  .conj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .conj{border:1.5px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+  .conj .v{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.01em}
+  .conj .ru{color:var(--muted);font-size:14px;margin-top:2px}
+  .conj .tag{float:right;background:var(--soft);color:var(--blue);font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px}
+  .conj .tag.irr{background:var(--pink-soft);color:var(--pink)}
+  .rows{margin-top:16px;display:grid;gap:0}
+  .row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:0}
+  .row .pn{color:var(--muted);font-size:15px}
+  .row .fm{color:var(--blue);font-weight:700}
+
+  /* ---------- matching ---------- */
+  .match-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .match-head .count{font-weight:700;color:var(--muted);font-size:15px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .col{display:grid;gap:10px}
+  .tile{font-family:inherit;font-size:17px;font-weight:700;color:var(--navy);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:15px 12px;cursor:pointer;text-align:center;transition:transform .08s,border-color .12s,background .12s;user-select:none}
+  .tile:hover{border-color:#cfd2ee}
+  .tile.sel{border-color:var(--blue);background:var(--soft);box-shadow:0 0 0 3px rgba(61,90,254,.14)}
+  .tile.done{border-color:var(--green-bd);background:var(--green-bg);color:var(--green);cursor:default;pointer-events:none}
+  .tile.bad{border-color:var(--red-bd);background:var(--red-bg);color:var(--red);animation:shake .3s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .win{margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--green-bg);color:var(--green);font-weight:700;display:none}
+  .win.show{display:block}
+
+  /* ---------- fill-in ---------- */
+  .q{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--line);border-radius:16px;padding:15px 18px;margin:10px 0;box-shadow:var(--shadow)}
+  .q .num{flex:none;color:var(--blue);font-weight:800;min-width:22px}
+  .q .body{flex:1;font-size:17px;line-height:1.9}
+  .q .hint{color:var(--muted);font-style:italic}
+  input.blank{font-family:inherit;font-size:16px;font-weight:700;color:var(--navy);border:none;border-bottom:2px solid #c7cbef;background:var(--soft);border-radius:8px 8px 0 0;padding:4px 10px;width:130px;outline:none}
+  input.blank:focus{border-bottom-color:var(--blue);background:#e7ecff}
+  input.blank.ok{background:var(--green-bg);border-bottom-color:var(--green);color:var(--green)}
+  input.blank.no{background:var(--red-bg);border-bottom-color:var(--red);color:var(--red)}
+  .sol{display:none;color:var(--green);font-weight:700;font-style:normal;margin-left:6px;font-size:15px}
+  .sol.show{display:inline}
+  .controls{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-weight:800;font-size:16px;border-radius:14px;padding:14px 26px;cursor:pointer;border:1.5px solid transparent}
+  .btn-dark{background:var(--navy);color:#fff}
+  .btn-dark:hover{background:#11112a}
+  .btn-ghost{background:#fff;color:var(--muted);border-color:var(--line)}
+  .btn-ghost:hover{color:var(--ink);border-color:#cfd2ee}
+  .score{align-self:center;font-weight:800;color:var(--navy);display:none}
+  .score.show{display:inline}
+
+  /* ---------- text / reveal ---------- */
+  .text-es{font-size:17px;line-height:1.7}
+  .reveal{margin-top:16px;border:1.5px solid var(--green-bd);background:var(--green-bg);color:#0f6b3c;border-radius:16px;padding:16px 18px;display:none}
+  .reveal.show{display:block}
+  .reveal b{color:#0a4f2c}
+
+  /* ---------- speaking ---------- */
+  .speak p{margin:0 0 14px;color:var(--ink)}
+  .qa{display:grid;gap:10px}
+  .qa div{background:var(--soft);border-radius:14px;padding:13px 16px}
+  .qa .es{font-weight:800;color:var(--navy)}
+  .qa .ru{color:var(--muted);font-size:15px;margin-top:2px}
+
+  /* ---------- cultural note ---------- */
+  .note{position:relative;background:var(--green-bg);border:1.5px solid var(--green-bd);border-radius:var(--radius);padding:26px 26px 24px}
+  .note h3{color:#0a4f2c;margin:0 0 10px;font-size:19px}
+  .note p{margin:0 0 10px;color:#13502f}
+  .note p:last-child{margin-bottom:0}
+  .note b{color:#063a22}
+
+  .footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
+
+  @media(max-width:640px){
+    h1{font-size:31px}
+    .conj-grid{grid-template-columns:1fr}
+    .hero{padding:30px 0 4px}
+    body{font-size:16px}
+    input.blank{width:120px}
+  }
+  
+  .block-sep{margin-top:74px;border-top:1px solid var(--line)}
+  .exbox{background:var(--soft);border-radius:14px;padding:13px 16px;margin:10px 0}
+  .exbox .es{font-weight:800;color:var(--navy)}
+  .exbox .es .fm{color:var(--blue)}
+  .exbox .ru{color:var(--muted);font-style:italic;margin-left:6px}
+  .tf{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;border:1.5px solid var(--line);border-radius:16px;padding:14px 18px;margin:10px 0;box-shadow:var(--shadow)}
+  .tf .stmt{flex:1;min-width:230px;font-size:16px}
+  .tf .num{color:var(--blue);font-weight:800;margin-right:6px}
+  .tf-opts{display:flex;gap:8px;flex-wrap:wrap}
+  .tf-btn{font-family:inherit;font-weight:800;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:8px 20px;cursor:pointer}
+  .tf-btn.sel{border-color:var(--blue);background:var(--soft)}
+  .tf-btn.good{border-color:var(--green-bd);background:var(--green-bg);color:var(--green)}
+  .tf-btn.bad2{border-color:var(--red-bd);background:var(--red-bg);color:var(--red)}
+  .tf-sol{font-size:14px;font-weight:700;width:100%}
+  .tf-sol.ok{color:var(--green)}
+  .tf-sol.no2{color:var(--red)}
+  .warnchip{background:#fff7e0;border:1.5px solid var(--amber);border-radius:14px;padding:12px 16px;margin:14px 0 0;font-size:14.5px}
+  .warnchip b{color:#b8860b}
+  button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  :root{padding-bottom:env(safe-area-inset-bottom,0px)}
+  html{scroll-padding-top:70px}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--blue:#7b93ff;--blue-deep:#9aabff;--navy:#f1f2fb;--ink:#d9dbea;--muted:#9a9cb6;--line:#2f3150;--soft:#20243f;--pink:#ff6aa6;--pink-soft:#3a1f2e;--green:#52d38e;--green-bg:#153324;--green-bd:#2a6a47;--red:#ff7a7a;--red-bg:#3a1d1d;--red-bd:#7a3535;}
+    :root:not([data-theme="light"]) body{background:#14152a}
+    :root:not([data-theme="light"]) .topbar{background:rgba(20,21,42,.86)}
+    :root:not([data-theme="light"]) .tile,:root:not([data-theme="light"]) .tf-btn,:root:not([data-theme="light"]) .btn-ghost,:root:not([data-theme="light"]) .backbtn{background:#1b1d36}
+    :root:not([data-theme="light"]) .btn-dark{background:var(--blue);color:#0f1024}
+    :root:not([data-theme="light"]) input.blank:focus{background:#262b52}
+    :root:not([data-theme="light"]) .reveal{color:#bff0d3}:root:not([data-theme="light"]) .reveal b{color:#e6fff0}
+    :root:not([data-theme="light"]) .note h3,:root:not([data-theme="light"]) .note p,:root:not([data-theme="light"]) .note b{color:#c9f5dc}
+    :root:not([data-theme="light"]) .warnchip{background:#33290f}:root:not([data-theme="light"]) .warnchip b{color:var(--amber)}
+  }
+  :root[data-theme="dark"]{--blue:#7b93ff;--blue-deep:#9aabff;--navy:#f1f2fb;--ink:#d9dbea;--muted:#9a9cb6;--line:#2f3150;--soft:#20243f;--pink:#ff6aa6;--pink-soft:#3a1f2e;--green:#52d38e;--green-bg:#153324;--green-bd:#2a6a47;--red:#ff7a7a;--red-bg:#3a1d1d;--red-bd:#7a3535;}
+  :root[data-theme="dark"] body{background:#14152a}
+  :root[data-theme="dark"] .topbar{background:rgba(20,21,42,.86)}
+  :root[data-theme="dark"] .tile,:root[data-theme="dark"] .tf-btn,:root[data-theme="dark"] .btn-ghost,:root[data-theme="dark"] .backbtn{background:#1b1d36}
+  :root[data-theme="dark"] .btn-dark{background:var(--blue);color:#0f1024}
+  :root[data-theme="dark"] input.blank:focus{background:#262b52}
+  :root[data-theme="dark"] .reveal{color:#bff0d3}:root[data-theme="dark"] .reveal b{color:#e6fff0}
+  :root[data-theme="dark"] .note h3,:root[data-theme="dark"] .note p,:root[data-theme="dark"] .note b{color:#c9f5dc}
+  :root[data-theme="dark"] .warnchip{background:#33290f}:root[data-theme="dark"] .warnchip b{color:var(--amber)}
+
+  .vocab{margin-top:6px}
+  .vrow{display:flex;justify-content:space-between;gap:16px;padding:11px 2px;border-bottom:1px dashed var(--line)}
+  .vrow:last-child{border-bottom:0}
+  .vrow .es{color:var(--blue);font-weight:700}
+  .vrow .ru{color:var(--muted);text-align:right}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .cmp div{border-radius:14px;padding:12px 15px;font-weight:700}
+  .cmp .ruv{background:var(--soft);color:var(--ink)}
+  .cmp .esv{background:var(--pink-soft);color:var(--pink)}
+  .cmp small{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:2px}
+  @media(max-width:640px){.cmp{grid-template-columns:1fr}}
+
+  .numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:14px}
+  .nt{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center}
+  .nt b{display:block;font-size:22px;color:var(--blue);line-height:1.1}
+  .nt span{font-size:13.5px;font-weight:700;color:var(--navy)}
+  .nt.hl{border-color:var(--pink);background:var(--pink-soft)}
+  .timegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:14px}
+  .tt{background:var(--soft);border-radius:14px;padding:11px 14px}
+  .tt .d{font-size:20px;font-weight:800;color:var(--blue)}
+  .tt .w{font-weight:700;color:var(--navy);font-size:14.5px}
+  .clockwrap{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+  .clock{width:190px;height:190px;flex:none;margin:0 auto}
+  .clock .face{fill:#fff;stroke:var(--navy);stroke-width:4}
+  .clock .tick{stroke:var(--navy);stroke-width:2}
+  .clock .tick.big{stroke-width:4}
+  .clock .hnum{font:800 13px Manrope,system-ui,sans-serif;fill:var(--navy);text-anchor:middle;dominant-baseline:central}
+  .clock .hh{stroke:var(--navy);stroke-width:7;stroke-linecap:round}
+  .clock .mh{stroke:var(--blue);stroke-width:4.5;stroke-linecap:round}
+  .clock .pin{fill:var(--pink)}
+  .clockside{flex:1;min-width:240px}
+  .clock-opts{display:flex;flex-direction:column;gap:8px}
+  .clock-opts .tf-btn{text-align:left}
+  .clock-fb{min-height:24px;margin-top:10px;font-weight:700;font-size:14.5px}
+  .clock-fb.ok{color:var(--green)}.clock-fb.no2{color:var(--red)}
+  .round{font-weight:800;color:var(--muted);font-size:14px;margin-bottom:8px}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .clock .face{fill:#1b1d36}}
+  :root[data-theme="dark"] .clock .face{fill:#1b1d36}
+
+  :root{--hover:#e3e9ff}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hover:#262d55}}
+  :root[data-theme="dark"]{--hover:#262d55}
+  .cb{color:var(--blue);font-weight:800}
+  .cn{color:var(--navy);font-weight:800}
+  .cp{color:var(--pink);font-weight:800}
+
+  .map{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+  .map a{display:flex;align-items:center;gap:8px;text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;font-weight:700;font-size:14px;color:var(--navy);background:#fff;transition:background .15s,border-color .15s}
+  .map a:hover{background:var(--hover);border-color:var(--blue)}
+  .map a .r{border-radius:999px;padding:2px 10px;font-weight:800;font-size:13px;color:#fff;background:var(--blue)}
+  .map a .r.dk{background:var(--navy)}
+
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+  .legend div{border-radius:16px;padding:12px 14px;font-size:14.5px;background:var(--soft)}
+  .legend b{display:block;font-size:16px;margin-bottom:2px}
+  .legend .ex{display:block;margin-top:6px;font-size:15px}
+
+  .step{margin-top:64px;scroll-margin-top:80px}
+  .step-no{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.04em}
+  .step-head{display:flex;align-items:center;gap:14px;margin:4px 0 6px}
+  .range{flex:none;font-weight:800;font-size:22px;border-radius:16px;padding:8px 16px;color:#fff;line-height:1;background:var(--blue)}
+  .range.dk{background:var(--navy)}
+  .step h2{font-size:26px;line-height:1.15;margin:0;color:var(--navy)}
+  .rule{font-size:17px;margin:10px 0 18px;max-width:62ch}
+
+  .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .t{border:2px solid var(--line);border-radius:16px;padding:12px 4px;text-align:center;background:#fff;cursor:default;transition:background .15s,border-color .15s,transform .15s}
+  .t:hover{background:var(--hover);border-color:var(--blue);transform:translateY(-2px)}
+  .t .d{display:block;font-size:30px;font-weight:800;line-height:1;color:var(--blue)}
+  .t .w{display:block;margin-top:6px;font-weight:800;font-size:16px;color:var(--navy)}
+  .t .tr{display:block;font-size:13px;color:var(--muted);font-weight:600}
+
+  .rows{display:flex;flex-direction:column;gap:8px}
+  .rw{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:16px;padding:10px 16px;background:#fff;cursor:default;transition:background .15s,border-color .15s}
+  .rw:hover{background:var(--hover);border-color:var(--blue)}
+  .rw .d{font-size:24px;font-weight:800;color:var(--blue)}
+  .rw .w{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2}
+  .rw .tr{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:2px}
+  .rw .x{font-size:14px;color:var(--muted);font-weight:600;text-align:right}
+
+  .formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;background:var(--soft);border-radius:20px;padding:18px;margin-bottom:14px;font-size:20px;font-weight:800;color:var(--navy);text-align:center}
+  .formula .pl{color:var(--muted);font-weight:700}
+  .formula .pc{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:6px 12px}
+
+  .selfcheck{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .selfcheck span{font-size:14px;color:var(--muted)}
+  .hide .w,.hide .tr{filter:blur(7px)}
+  .hide .t,.hide .rw{cursor:pointer}
+  .hide .peek .w,.hide .peek .tr{filter:none}
+  .takeaway{margin-top:14px;border-left:4px solid var(--blue);padding:4px 0 4px 14px;font-size:15.5px}
+  .say{font-size:13px;color:var(--muted);margin-top:8px}
+
+  /* constructor */
+  .builder{background:#fff;border:2px solid var(--navy);border-radius:24px;padding:22px}
+  .screen{background:var(--soft);border-radius:18px;padding:20px;text-align:center;margin-bottom:18px}
+  .screen .big{font-size:56px;font-weight:800;color:var(--blue);line-height:1}
+  .screen .word{font-size:26px;font-weight:800;margin-top:10px;min-height:34px;word-break:break-word}
+  .screen .trs{font-size:16px;color:var(--muted);font-weight:600;margin-top:4px}
+  .screen .why{font-size:14px;color:var(--ink);margin-top:10px}
+  .dial{margin-top:12px}
+  .dial .lbl{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:6px;letter-spacing:.03em}
+  .keys{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+  .key{min-width:0;font-family:inherit;font-weight:800;font-size:16px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:12px;padding:10px 0;cursor:pointer;transition:background .15s,border-color .15s}
+  .key:hover{background:var(--hover);border-color:var(--blue)}
+  .key.on{background:var(--blue);border-color:var(--blue);color:#fff}
+  .speak-btn{font-family:inherit;font-weight:800;border:0;background:var(--navy);color:#fff;border-radius:12px;padding:9px 16px;margin-top:12px;cursor:pointer}
+  .speak-btn:hover{background:var(--blue)}
+
+  /* build game */
+  .slot{min-height:58px;border:2px dashed var(--line);border-radius:16px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-size:22px;font-weight:800}
+  .slot.ok{border-style:solid;border-color:var(--green-bd);background:var(--green-bg)}
+  .slot.no{border-style:solid;border-color:var(--red-bd);background:var(--red-bg)}
+  .slot .ph{font-size:15px;font-weight:600;color:var(--muted)}
+  .pieces{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+  .piece{font-family:inherit;font-weight:800;font-size:17px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:12px;padding:9px 14px;cursor:pointer;transition:background .15s,border-color .15s}
+  .piece:hover{background:var(--hover);border-color:var(--blue)}
+  .piece:disabled{opacity:.3;cursor:default}
+  .target{font-size:48px;font-weight:800;color:var(--blue);text-align:center;line-height:1}
+  .bg-fb{text-align:center;font-weight:700;min-height:24px;margin-top:10px}
+  .bg-fb.ok{color:var(--green)}.bg-fb.no{color:var(--red)}
+
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .t,:root:not([data-theme="light"]) .rw,:root:not([data-theme="light"]) .map a,:root:not([data-theme="light"]) .formula .pc,:root:not([data-theme="light"]) .builder,:root:not([data-theme="light"]) .key,:root:not([data-theme="light"]) .piece{background:#1b1d36}
+    :root:not([data-theme="light"]) .t:hover,:root:not([data-theme="light"]) .rw:hover,:root:not([data-theme="light"]) .key:hover,:root:not([data-theme="light"]) .piece:hover,:root:not([data-theme="light"]) .map a:hover{background:var(--hover)}
+    :root:not([data-theme="light"]) .key.on{background:var(--blue);color:#0f1024}
+    :root:not([data-theme="light"]) .builder{border-color:var(--line)}
+  }
+  :root[data-theme="dark"] .t,:root[data-theme="dark"] .rw,:root[data-theme="dark"] .map a,:root[data-theme="dark"] .formula .pc,:root[data-theme="dark"] .builder,:root[data-theme="dark"] .key,:root[data-theme="dark"] .piece{background:#1b1d36}
+  :root[data-theme="dark"] .t:hover,:root[data-theme="dark"] .rw:hover,:root[data-theme="dark"] .key:hover,:root[data-theme="dark"] .piece:hover,:root[data-theme="dark"] .map a:hover{background:var(--hover)}
+  :root[data-theme="dark"] .key.on{background:var(--blue);color:#0f1024}
+
+  @media (max-width:560px){
+    .tiles{gap:6px}
+    .t{padding:10px 1px;border-radius:12px}
+    .t .d{font-size:24px}
+    .t .w{font-size:13px}
+    .t .tr{font-size:11px}
+    .rw{grid-template-columns:48px 1fr;padding:10px 12px}
+    .rw .x{grid-column:2;text-align:left;margin-top:-4px}
+    .rw .w{font-size:18px}
+    .step h2{font-size:22px}
+    .range{font-size:18px}
+    .keys{gap:4px}
+    .keys[data-k="h"]{grid-template-columns:repeat(5,1fr)}
+    .key{font-size:14px;padding:9px 0;border-radius:9px}
+    .screen .big{font-size:44px}
+    .screen .word{font-size:21px}
+    .builder{padding:16px}
+  }
+
+  .mtr{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-top:2px}
+  .tile.done .mtr{color:var(--green)}
+  .tile:hover,.tf-btn:hover{background:var(--hover);border-color:var(--blue)}
+  .trn{color:var(--muted);font-weight:600;font-size:14px}
+  .sp{font-family:inherit;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:2px 8px;cursor:pointer;font-size:14px;line-height:1.4;vertical-align:middle;transition:background .15s,border-color .15s}
+  .sp:hover{background:var(--hover);border-color:var(--blue)}
+  .sol.show{display:inline}
+  .sol.bad{color:var(--red)}
+  .tf-full{display:block;margin-top:6px;color:var(--navy);font-weight:600}
+  .tf-full b{font-weight:800}
+  .speak .trn{display:block;margin:-2px 0 4px}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sp{background:#1b1d36}}
+  :root[data-theme="dark"] .sp{background:#1b1d36}
+
+  /* ===== new layout ===== */
+  :root{--band:#1b1b3a}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--band:#0b0c1d}}
+  :root[data-theme="dark"]{--band:#0b0c1d}
+  body{overflow-x:hidden}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  .narrow{max-width:780px}
+  .topbar .inner{max-width:1000px;justify-content:space-between;gap:16px;padding:12px 24px}
+  .topnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{white-space:nowrap;text-decoration:none;color:var(--navy);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border-radius:10px;transition:background .15s,color .15s}
+  .topnav a:hover{background:var(--hover);color:var(--blue)}
+
+  .hero2{padding:56px 0 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .tag2{font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);border:1.5px solid var(--navy);border-radius:999px;padding:5px 12px}
+  .tag2.fill{background:var(--blue);border-color:var(--blue);color:#fff}
+  .hero2 h1{font-size:clamp(56px,11vw,120px);line-height:.92;letter-spacing:-.04em;margin:0 0 20px;color:var(--navy)}
+  .hero2 h1 span{color:var(--blue)}
+  .hero2 .lead2{font-size:19px;line-height:1.55;color:var(--ink);margin:0 0 26px;max-width:46ch}
+  .hero2 .lead2 b{color:var(--navy)}
+  .hero2 .lead2:has(+ .ru2){margin-bottom:8px}
+  .hero2 .ru2{font-size:16px;color:var(--muted)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn-lg{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:800;font-size:16px;border-radius:14px;padding:14px 22px;transition:transform .15s,background .15s}
+  .btn-lg.b-pri{background:var(--blue);color:#fff}
+  .btn-lg.b-pri:hover{background:var(--blue-deep);transform:translateY(-2px)}
+  .btn-lg.b-sec{border:1.5px solid var(--line);color:var(--navy);background:#fff}
+  .btn-lg.b-sec:hover{background:var(--hover);border-color:var(--blue)}
+  .art{position:relative;height:340px}
+  .stk{position:absolute;background:#fff;border:2px solid var(--navy);border-radius:22px;padding:16px 22px;box-shadow:6px 6px 0 var(--navy);text-align:center;cursor:default;transition:transform .2s}
+  .stk:hover{transform:rotate(0deg) scale(1.05)!important}
+  .stk .d{display:block;font-size:54px;font-weight:800;line-height:1;color:var(--blue)}
+  .stk .w{display:block;font-weight:800;font-size:18px;color:var(--navy);margin-top:4px}
+  .stk .tr{display:block;font-size:13px;color:var(--muted);font-weight:600}
+  .stk.s1{left:4%;top:8%;transform:rotate(-6deg)}
+  .stk.s2{right:2%;top:30%;transform:rotate(5deg);background:var(--blue);border-color:var(--navy)}
+  .stk.s2 .d,.stk.s2 .w{color:#fff}.stk.s2 .tr{color:rgba(255,255,255,.8)}
+  .stk.s3{left:16%;bottom:2%;transform:rotate(3deg);background:var(--pink-soft)}
+  .stk.s3 .d{color:var(--pink)}
+
+  .sec{padding:72px 0 0;scroll-margin-top:64px}
+  .sec-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .sec-label b{color:var(--blue)}
+  h2.big{font-size:clamp(34px,6vw,56px);line-height:1;letter-spacing:-.03em;margin:0 0 12px;color:var(--navy)}
+  .sec .sub2{font-size:17px;color:var(--muted);margin:0 0 26px;max-width:60ch}
+
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .bcard{display:flex;flex-direction:column;justify-content:space-between;min-height:190px;text-decoration:none;border:1.5px solid var(--line);border-radius:22px;padding:20px;background:#fff;color:var(--navy);transition:background .15s,border-color .15s,transform .15s}
+  .bcard:hover{background:var(--hover);border-color:var(--blue);transform:translateY(-3px)}
+  .bcard .ic{font-size:34px}
+  .bcard h3{margin:14px 0 4px;font-size:20px}
+  .bcard p{margin:0;font-size:14.5px;color:var(--muted)}
+  .bcard .go{margin-top:14px;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+  .bcard.feat{background:var(--blue);border-color:var(--blue);color:#fff}
+  .bcard.feat p{color:rgba(255,255,255,.85)}.bcard.feat .go{color:#fff}
+  .bcard.feat:hover{background:var(--blue-deep)}
+
+  .legend-row{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 22px;font-size:14.5px}
+  .legend-row span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:12px;height:12px;border-radius:4px;display:inline-block}
+
+  .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1.5px solid var(--line);margin-bottom:6px;position:sticky;top:57px;z-index:10;background:var(--tabbg,rgba(255,255,255,.95));backdrop-filter:blur(8px);padding-top:6px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{font-family:inherit;flex:none;border:0;background:transparent;cursor:pointer;padding:10px 14px 12px;border-bottom:3px solid transparent;margin-bottom:-1.5px;text-align:left;color:var(--muted);transition:color .15s,background .15s;border-radius:10px 10px 0 0}
+  .tab:hover{background:var(--hover);color:var(--navy)}
+  .tab .n{display:block;font-size:11px;font-weight:800;letter-spacing:.08em}
+  .tab .r{display:block;font-size:17px;font-weight:800}
+  .tab[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+  .progress{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin:0 0 6px}
+  .progress i{display:block;height:100%;background:var(--blue);width:16.6%;transition:width .3s}
+  .panel{padding-top:18px}
+  .panel .step-head{margin-top:6px}
+  .pager{display:flex;justify-content:space-between;gap:10px;margin-top:34px;padding-top:20px;border-top:1.5px solid var(--line)}
+  .pager button{font-family:inherit;font-weight:800;font-size:15px;border-radius:14px;padding:13px 20px;cursor:pointer;transition:background .15s,border-color .15s}
+  .pg-prev{border:1.5px solid var(--line);background:#fff;color:var(--navy)}
+  .pg-prev:hover{background:var(--hover);border-color:var(--blue)}
+  .pg-prev:disabled{opacity:.35;cursor:default}
+  .pg-next{border:0;background:var(--blue);color:#fff;margin-left:auto}
+  .pg-next:hover{background:var(--blue-deep)}
+
+  .band{background:var(--band);color:#fff;margin-top:80px;padding:72px 0 80px;scroll-margin-top:56px}
+  .band .sec-label{color:rgba(255,255,255,.6)}.band .sec-label b{color:#9fb0ff}
+  .band h2.big{color:#fff}.band .sub2{color:rgba(255,255,255,.75)}
+  .band h3{color:#fff!important}
+  .band p{color:rgba(255,255,255,.75)}
+  .band .builder p,.band .builder h3{color:var(--navy)}
+  .band .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  .band .builder{border-color:transparent}
+
+  .acc{border:1.5px solid var(--line);border-radius:22px;background:#fff;margin-bottom:12px;transition:border-color .15s}
+  .acc[open]{border-color:var(--blue)}
+  .acc>summary{list-style:none;display:flex;align-items:center;gap:16px;padding:18px 20px;cursor:pointer;border-radius:22px;transition:background .15s}
+  .acc>summary::-webkit-details-marker{display:none}
+  .acc>summary:hover{background:var(--hover)}
+  .acc .acc-ic{flex:none;width:44px;height:44px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:22px}
+  .acc .acc-tt{flex:1}
+  .acc .acc-tt b{display:block;font-size:18px;color:var(--navy)}
+  .acc .acc-tt small{display:block;color:var(--muted);font-size:14px;font-weight:600}
+  .acc .chev{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--navy);transition:transform .2s}
+  .acc[open] .chev{transform:rotate(45deg);background:var(--blue);border-color:var(--blue);color:#fff}
+  .acc .acc-body{padding:4px 20px 22px}
+  .acc .acc-body>.card{margin-top:0;border:0;padding:0;box-shadow:none}
+
+  .duo{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:stretch}
+  .duo>.card,.duo>.note{margin:0}
+  .resumen{margin-top:16px;border-radius:22px;background:var(--soft);padding:22px}
+  .resumen h3{margin:0 0 6px}
+  .resumen p{margin:6px 0 0}
+  .footer{margin-top:80px}
+
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--tabbg:rgba(20,21,42,.95)}
+    :root:not([data-theme="light"]) .bcard,:root:not([data-theme="light"]) .acc,:root:not([data-theme="light"]) .stk,:root:not([data-theme="light"]) .btn-lg.b-sec,:root:not([data-theme="light"]) .pg-prev{background:#1b1d36}
+    :root:not([data-theme="light"]) .bcard:hover,:root:not([data-theme="light"]) .acc>summary:hover{background:var(--hover)}
+    :root:not([data-theme="light"]) .stk{box-shadow:6px 6px 0 #000}
+    :root:not([data-theme="light"]) .band .builder p,:root:not([data-theme="light"]) .band .builder h3{color:var(--navy)}
+  }
+  :root[data-theme="dark"]{--tabbg:rgba(20,21,42,.95)}
+  :root[data-theme="dark"] .bcard,:root[data-theme="dark"] .acc,:root[data-theme="dark"] .stk,:root[data-theme="dark"] .btn-lg.b-sec,:root[data-theme="dark"] .pg-prev{background:#1b1d36}
+
+  @media (max-width:860px){
+    .hero2{grid-template-columns:1fr;padding-top:36px}
+    .art{height:250px;max-width:420px}
+    .stk .d{font-size:42px}
+    .art{height:230px;margin-top:8px}
+    .stk.s1{left:0;top:6%}
+    .stk.s2{right:0;top:4%}
+    .stk.s3{left:30%;bottom:auto;top:40%}
+    .bento{grid-template-columns:1fr 1fr}
+    .band .two,.duo{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    .topbar .inner{padding:10px 16px;flex-wrap:wrap;justify-content:flex-start}
+    .topnav{width:100%;margin:0 -6px}
+    .tabs{top:96px}
+    .bcard{min-height:160px;padding:16px}
+    .bcard h3{font-size:17px}
+    .acc>summary{padding:14px;gap:12px}
+    .acc .acc-ic{width:38px;height:38px;font-size:18px}
+    .acc .acc-tt b{font-size:16px}
+    .acc .acc-body{padding:4px 14px 18px}
+    .band{padding:56px 0 64px}
+  }
+
+  .t.wide{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:10px;padding:12px}
+  .t.wide .w,.t.wide .tr{margin-top:0}
+  .rules{margin:0 0 40px;border-top:2px solid var(--navy)}
+  .rules-top{display:flex;justify-content:space-between;gap:10px;padding:12px 0;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:1.5px solid var(--navy)}
+  .rules-top span:last-child{color:var(--muted)}
+  .rl{display:grid;grid-template-columns:150px 1fr 230px;gap:24px;align-items:start;padding:22px 12px;border-bottom:1.5px solid var(--line);transition:background .15s}
+  .rl:hover{background:var(--hover)}
+  .rl-n{font-size:46px;font-weight:800;line-height:.95;letter-spacing:-.03em;color:var(--blue)}
+  .rl-tag{display:block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:6px}
+  .rl-t p{margin:0;font-size:17px;line-height:1.5;color:var(--ink)}
+  .rl-e{display:flex;flex-direction:column}
+  .rl-e .es{font-size:20px;font-weight:800;color:var(--navy);line-height:1.25}
+  .rl-e .ru{font-size:13.5px;font-weight:600;color:var(--muted);margin:2px 0 8px}
+  .rl-e .es + .es{margin-top:4px}
+  @media (max-width:760px){
+    .rl{grid-template-columns:1fr;gap:8px;padding:20px 4px}
+    .rl-n{font-size:40px}
+    .rl-e{margin-top:6px;padding-left:12px;border-left:3px solid var(--blue)}
+    .rl-e .es{font-size:18px}
+  }
+
+  .vcard{margin-bottom:22px;display:grid;grid-template-columns:1.1fr 1fr;text-decoration:none;border:2px solid var(--navy);border-radius:22px;overflow:hidden;background:#fff;box-shadow:6px 6px 0 var(--navy);transition:transform .15s,box-shadow .15s}
+  .vcard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--navy)}
+  .vthumb{position:relative;min-height:200px;background:var(--blue) center/cover no-repeat;display:grid;place-items:center}
+  .vthumb::after{content:"";position:absolute;inset:0;background:rgba(27,27,58,.25)}
+  .vplay{position:relative;z-index:1;width:72px;height:72px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:26px;padding-left:5px;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:transform .15s}
+  .vcard:hover .vplay{transform:scale(1.08)}
+  .vinfo{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:22px}
+  .vtag{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .vtitle{font-size:24px;font-weight:800;line-height:1.15;color:var(--navy)}
+  .vsub{font-size:15px;color:var(--muted)}
+  .vbtn{align-self:flex-start;margin-top:10px;background:var(--blue);color:#fff;font-weight:800;font-size:15px;border-radius:14px;padding:12px 18px;transition:background .15s}
+  .vcard:hover .vbtn{background:var(--blue-deep)}
+  @media (max-width:560px){.vcard{grid-template-columns:1fr}.vthumb{min-height:180px}}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vcard{background:#1b1d36;box-shadow:6px 6px 0 #000}}
+  :root[data-theme="dark"] .vcard{background:#1b1d36;box-shadow:6px 6px 0 #000}
+
+  .meme{margin:0 auto 22px;max-width:380px}
+  .meme img{display:block;width:100%;height:auto;border-radius:18px;border:2px solid var(--navy);box-shadow:6px 6px 0 var(--navy);transform:rotate(-1.5deg)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .meme img{box-shadow:6px 6px 0 #000;border-color:var(--line)}}
+  :root[data-theme="dark"] .meme img{box-shadow:6px 6px 0 #000;border-color:var(--line)}
+
+  .gcard{display:flex;align-items:center;gap:18px;text-decoration:none;border:2px solid var(--navy);border-radius:22px;padding:18px 20px;margin:0 0 14px;background:#fff;box-shadow:6px 6px 0 var(--navy);transition:transform .15s,box-shadow .15s}
+  .gcard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--navy)}
+  .gcard:hover .vbtn{background:var(--blue-deep)}
+  .gic{flex:none;width:56px;height:56px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:28px}
+  .ginfo{flex:1;display:flex;flex-direction:column;gap:4px}
+  .gtitle{font-size:19px;font-weight:800;color:var(--navy);line-height:1.2}
+  .gsub{font-size:14.5px;color:var(--muted);line-height:1.45}
+  .gcard .vbtn{flex:none;margin-top:0;align-self:center}
+  @media (max-width:640px){.gcard{flex-wrap:wrap}.gcard .vbtn{width:100%;text-align:center}}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gcard{background:#1b1d36;box-shadow:6px 6px 0 #000}}
+  :root[data-theme="dark"] .gcard{background:#1b1d36;box-shadow:6px 6px 0 #000}
+
+  .ghint{background:var(--soft);border-radius:18px;padding:16px 18px;margin:0 0 30px}
+  .ghint-h{font-weight:800;color:var(--navy);margin-bottom:10px}
+  .ghint-row{display:flex;align-items:baseline;gap:12px;margin:6px 0;font-size:15px}
+  .ghint .op{flex:none;width:30px;height:30px;border-radius:9px;background:var(--blue);color:#fff;font-weight:800;font-size:18px;display:grid;place-items:center;align-self:center}
+  .ghint-ex{margin-top:12px;padding-top:10px;border-top:1.5px dashed var(--line);display:flex;flex-direction:column;gap:6px;font-size:15px}
+  .ghint-ex .cb{white-space:nowrap}
+
+  .slot{flex-direction:column;gap:6px;min-height:92px}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
+  .chip{font-family:inherit;font-weight:800;font-size:19px;border-radius:12px;padding:8px 14px;cursor:pointer;border:2px solid;transition:transform .12s,opacity .12s}
+  .chip:hover:not(:disabled){transform:translateY(-2px);opacity:.85}
+  .chip:disabled{cursor:default}
+  .chip.glue{margin-left:-8px;border-top-left-radius:4px;border-bottom-left-radius:4px}
+  .chip.k-b{background:var(--soft);border-color:var(--blue);color:var(--blue)}
+  .chip.k-n{background:#fff;border-color:var(--navy);color:var(--navy)}
+  .chip.k-p{background:var(--pink-soft);border-color:var(--pink);color:var(--pink)}
+  .sw{font-size:15px;font-weight:600;color:var(--muted)}
+  .sw b{color:var(--navy);font-size:17px}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.k-n{background:#1b1d36}}
+  :root[data-theme="dark"] .chip.k-n{background:#1b1d36}
+
+  :root{--emp:#fbcb45;--emp-line:#1b1b3a}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--emp-line:#0b0c1d}}
+  :root[data-theme="dark"]{--emp-line:#0b0c1d}
+  .emp{width:34px;height:auto;display:inline-block;flex:none}
+  .emp-block{margin-top:34px;border:2px solid var(--navy);border-radius:24px;padding:22px;background:#fff}
+  .emp-head{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+  .emp-head h3{margin:0 0 4px;font-size:22px}
+  .emp-head p{margin:0;color:var(--muted);font-size:15px}
+  .emp-head p b{color:var(--navy)}
+  .emp-big{width:84px;transform:rotate(-8deg)}
+  .ec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ec{display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;transition:background .15s,border-color .15s}
+  .ec:hover{background:var(--hover);border-color:var(--blue)}
+  .ec-n{flex:none;width:44px;font-size:30px;font-weight:800;color:var(--blue);text-align:center;line-height:1}
+  .ec-b{min-width:0}
+  .ec-i{display:grid;grid-template-columns:repeat(5,30px);gap:3px 4px;margin-bottom:6px}
+  .ec-i .emp{width:30px}
+  .ec-s{font-weight:800;color:var(--navy);font-size:16px}
+  .ec-t{font-size:13px;font-weight:600;color:var(--muted)}
+  .emp-fact{display:flex;gap:16px;align-items:center;background:var(--soft);border-radius:18px;padding:16px 18px;margin:18px 0 0;font-size:15px;line-height:1.55}
+  .ef-icons{flex:none;display:grid;grid-template-columns:repeat(3,26px);gap:3px;position:relative}
+  .ef-icons .emp{width:26px}
+  .ef-sep{grid-column:1/-1;height:2px;background:var(--line);margin:2px 0}
+  @media (max-width:640px){.ec-grid{grid-template-columns:1fr}.emp-block{padding:16px}.emp-fact{flex-direction:column;align-items:flex-start}}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .emp-block{background:#1b1d36;border-color:var(--line)}}
+  :root[data-theme="dark"] .emp-block{background:#1b1d36;border-color:var(--line)}
+
+  .rd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .rd{border:1.5px solid var(--line);border-radius:22px;padding:18px 18px 16px;background:#fff;transition:background .15s,border-color .15s}
+  .rd:hover{background:var(--hover);border-color:var(--blue)}
+  .rd-h{display:flex;align-items:center;gap:10px}
+  .rd-ic{flex:none;width:38px;height:38px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:19px}
+  .rd h3{margin:0;font-size:17px;line-height:1.2;color:var(--navy)}
+  .rd-sub{margin:8px 0 10px;font-size:14px;color:var(--muted)}
+  .rd ul{list-style:none;margin:0;padding:10px 0 0;border-top:1.5px dashed var(--line);display:flex;flex-direction:column;gap:5px}
+  .rd li{font-size:15px;line-height:1.35}
+  .rd li .es{font-weight:800;color:var(--blue)}
+  .rd li .ru{color:var(--muted);font-size:13.5px}
+  .rd-var{margin-top:10px;display:flex;flex-direction:column;gap:3px;font-size:13.5px;color:var(--ink);background:var(--soft);border-radius:12px;padding:8px 10px}
+  @media (max-width:900px){.rd-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:600px){.rd-grid{grid-template-columns:1fr}}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rd{background:#1b1d36}}
+  :root[data-theme="dark"] .rd{background:#1b1d36}
+</style>
+
+<style id="feedback-v1">
+/* ===== Type scale (signaling): Display / H1 / H2 / Lead / Body / Caption ===== */
+:root{--fs-display:clamp(60px,11vw,124px);--fs-h1:clamp(40px,6.4vw,72px);--fs-h2:clamp(26px,3.4vw,38px);--fs-lead:clamp(18px,2vw,21px);--fs-body:17px;--fs-cap:13px;
+  --c-repaso:#fff4d4;--a-repaso:#a8710a;--c-teoria:#edf1ff;--a-teoria:#3d5afe;--c-cancion:#fde9f1;--a-cancion:#e5246f;
+  --c-constr:#1b1b3a;--a-constr:#9fb0ff;--c-practica:#e5f6ec;--a-practica:#15a05a;--c-hablar:#f0ebff;--a-hablar:#6d4ae8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-repaso:#2b2412;--a-repaso:#fbcb45;--c-teoria:#191d38;--a-teoria:#8fa2ff;--c-cancion:#2e1724;--a-cancion:#ff6aa6;--c-practica:#132a1f;--a-practica:#52d38e;--c-hablar:#221b3d;--a-hablar:#ab97ff}}
+:root[data-theme="dark"]{--c-repaso:#2b2412;--a-repaso:#fbcb45;--c-teoria:#191d38;--a-teoria:#8fa2ff;--c-cancion:#2e1724;--a-cancion:#ff6aa6;--c-practica:#132a1f;--a-practica:#52d38e;--c-hablar:#221b3d;--a-hablar:#ab97ff}
+.c-repaso{--tint:var(--c-repaso);--acc:var(--a-repaso)}.c-teoria{--tint:var(--c-teoria);--acc:var(--a-teoria)}.c-cancion{--tint:var(--c-cancion);--acc:var(--a-cancion)}
+.c-constr{--tint:var(--c-constr);--acc:var(--a-constr)}.c-practica{--tint:var(--c-practica);--acc:var(--a-practica)}.c-hablar{--tint:var(--c-hablar);--acc:var(--a-hablar)}
+
+.hero2 h1{font-size:var(--fs-display)}
+h2.big{font-size:var(--fs-h1);line-height:.98;letter-spacing:-.035em;margin:0 0 16px}
+.sec .sub2,.band .sub2{font-size:var(--fs-lead);line-height:1.5;color:var(--ink);opacity:.78;margin:0 0 36px;max-width:56ch}
+.step-head h2,.step h2{font-size:var(--fs-h2)!important;letter-spacing:-.02em}
+.rule{font-size:var(--fs-body);line-height:1.6;margin:14px 0 24px}
+.sec h3{letter-spacing:-.01em}
+
+/* section label = pill with section number */
+.sec-label{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-cap);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--acc,var(--navy));background:#fff;border-radius:999px;padding:6px 16px 6px 6px;margin-bottom:18px}
+.sec-label .sl-n{display:grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--acc,var(--navy));color:#fff;font-size:13px;letter-spacing:0}
+.band .sec-label{background:rgba(255,255,255,.1);color:#fff}
+.band .sec-label .sl-n{background:#fff;color:#1b1b3a}
+
+/* ===== Sections: full-bleed tinted surfaces = clear boundaries ===== */
+.sec.tint,.hub{position:relative;padding:104px 0 112px;border-image:conic-gradient(var(--tint) 0 0) fill 0//0 100vw}
+.narrow-in{max-width:780px}
+.sec.tint .card,.sec.tint .rd,.sec.tint .acc,.sec.tint .rw,.sec.tint .t,.sec.tint .ec,.sec.tint .emp-block,.sec.tint .rules,.sec.tint .vcard,.sec.tint .gcard,.sec.tint .tf,.sec.tint .q{background:#fff}
+#teoria .tabs{background:var(--c-teoria)}
+.sec.tint .formula{background:#fff}
+.band{margin-top:0;padding:104px 0 112px}
+.sec,.band,.step{scroll-margin-top:0!important}
+html{scroll-padding-top:64px}
+
+/* ===== Lesson hub: navigation that stands out ===== */
+.hub{--tint:var(--blue);color:#fff;margin-top:0}
+.hub .sec-label{background:rgba(255,255,255,.16);color:#fff}
+.hub .sec-label .sl-n{background:#fff;color:var(--blue)}
+.hub h2.big{color:#fff}
+.hub .sub2{color:#fff;opacity:.85}
+.hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hcard{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:#fff;color:var(--navy);border-radius:22px;padding:26px 20px 20px;box-shadow:inset 0 8px 0 var(--acc);transition:transform .2s,box-shadow .2s}
+.hcard:hover{transform:translateY(-4px);box-shadow:inset 0 8px 0 var(--acc),0 14px 30px rgba(15,20,80,.25)}
+.c-teoria.hcard{--acc:#1b1b3a}
+.hcard .hc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.hcard .hc-n{display:grid;place-items:center;min-width:34px;height:34px;padding:0 8px;border-radius:999px;background:var(--tint);color:var(--acc);font-weight:800;font-size:14px}
+.c-constr.hcard .hc-n{background:#1b1b3a;color:#fff}
+.hcard .hc-ic{font-size:26px}
+.hcard h3{margin:0;font-size:22px}
+.hcard p{margin:0;font-size:15px;color:var(--muted);flex:1}
+.hcard .go{margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.c-constr.hcard .go{color:#3d5afe}
+
+/* ===== Hero as first screen ===== */
+.hero2{min-height:calc(100svh - 64px);position:relative;padding-bottom:84px}
+.scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.scroll-cue i{font-style:normal;font-size:20px;animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ===== Motion: scroll-reveal (enter + exit) ===== */
+html{scroll-snap-type:y proximity}
+.snap{scroll-snap-align:start}
+.rv{opacity:0;translate:0 28px;transition:opacity .6s ease,translate .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;translate:0 0}
+.rv.out{opacity:0;translate:0 -24px;transition-delay:0ms}
+@media (prefers-reduced-motion:reduce){html{scroll-snap-type:none}.rv,.rv.in,.rv.out{opacity:1!important;translate:none!important;transition:none!important}.scroll-cue i{animation:none}}
+
+@media (max-width:860px){.hub-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){
+  html{scroll-padding-top:104px}
+  .sec.tint,.hub,.band{padding:72px 0 80px}
+  .hub-grid{gap:10px}.hcard{padding:20px 14px 16px}.hcard h3{font-size:18px}.hcard p{font-size:13.5px}
+  .hero2{min-height:calc(100svh - 100px)}
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .hcard,:root:not([data-theme="light"]) .sec-label{background:#1b1d36}
+  :root:not([data-theme="light"]) .sec.tint .card,:root:not([data-theme="light"]) .sec.tint .rd,:root:not([data-theme="light"]) .sec.tint .acc,:root:not([data-theme="light"]) .sec.tint .rw,:root:not([data-theme="light"]) .sec.tint .t,:root:not([data-theme="light"]) .sec.tint .ec,:root:not([data-theme="light"]) .sec.tint .emp-block,:root:not([data-theme="light"]) .sec.tint .rules,:root:not([data-theme="light"]) .sec.tint .vcard,:root:not([data-theme="light"]) .sec.tint .gcard,:root:not([data-theme="light"]) .sec.tint .tf,:root:not([data-theme="light"]) .sec.tint .q,:root:not([data-theme="light"]) .sec.tint .formula{background:#16182c}
+  :root:not([data-theme="light"]) .hub{--tint:#2238d6}
+}
+</style>
+
+<style id="feedback-v2">
+/* nav: no brackets, thin dividers */
+.topnav{gap:0}
+.topnav a{position:relative;letter-spacing:.05em;padding:8px 14px}
+.topnav a+a::before{content:"";position:absolute;left:0;top:28%;bottom:28%;width:1px;background:var(--line);pointer-events:none}
+/* theory: compact key points */
+.rule{font-size:19px;line-height:1.5;margin:10px 0 22px}
+.takeaway{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;border:0;border-radius:16px;background:#fff;padding:12px 16px;margin-top:16px;font-size:16px}
+.takeaway .ojo{flex:none;background:var(--pink);color:#fff;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+/* rules = cards (grid on desktop, swipe on mobile) */
+.rules{border:0;margin-bottom:40px;background:transparent!important}
+.rules-top{border:0;padding:0 0 10px}
+.rl-hint{color:var(--muted)}
+.rl-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rl-wrap .rl{display:flex;flex-direction:column;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:18px 20px;transition:border-color .15s,background .15s}
+.rl-wrap .rl:hover{border-color:var(--blue);background:#fff}
+.rl-wrap .rl-n{font-size:40px}
+.rl-wrap .rl-tag{align-self:flex-start;background:var(--soft);color:var(--blue);border-radius:999px;padding:3px 10px;font-size:11.5px;margin:2px 0}
+.rl-wrap .rl-t p{font-size:15.5px;margin:0}
+.rl-wrap .rl-e{flex-direction:row;flex-wrap:wrap;gap:4px 14px;margin-top:6px;padding:10px 0 0;border-top:1px dashed var(--line);border-left:0}
+.rl-wrap .rl-e .es{font-size:17px}
+.rl-wrap .rl-e .ru{margin:0 0 4px;flex-basis:100%}
+@media (max-width:760px){
+  .rl-wrap{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
+  .rl-wrap::-webkit-scrollbar{display:none}
+  .rl-wrap .rl{flex:0 0 82%;scroll-snap-align:start}
+}
+@media (min-width:761px){.rl-hint{font-size:0}.rl-hint::after{content:attr(data-d);font-size:13px}}
+/* no-JS notice */
+.nojs{position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1b1b3a;color:#fff;border-radius:16px;padding:14px 16px;font-size:15px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .takeaway,:root:not([data-theme="light"]) .rl-wrap .rl{background:#16182c}}
+
+@media (max-width:640px){
+  .ec-grid{grid-template-columns:1fr 1fr!important;gap:8px}
+  .ec{flex-direction:column;align-items:flex-start;gap:6px;padding:12px}
+  .ec-n{width:auto;font-size:24px;text-align:left}
+  .ec-i{grid-template-columns:repeat(5,22px)!important;gap:2px 3px}
+  .ec-i .emp{width:22px!important}
+  .ec-s{font-size:14px}.ec-t{font-size:12px}
+}
+</style>
+
+<style id="feedback-v3">
+.hub{padding:96px 0 104px}
+.hub-list{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.28);margin-top:8px}
+.hl{display:grid;grid-template-columns:56px 1fr 32px;align-items:center;gap:16px;padding:18px 6px;border-bottom:1px solid rgba(255,255,255,.28);color:#fff;text-decoration:none;transition:background .2s,padding .2s}
+.hl:hover{background:rgba(255,255,255,.1);padding-left:14px}
+.hl-n{display:grid;place-items:center;width:44px;height:44px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);font-weight:800;font-size:15px}
+.hl-t b{display:block;font-size:22px;font-weight:800;letter-spacing:-.01em}
+.hl-t small{display:block;font-size:15px;opacity:.78;margin-top:2px}
+.hl-go{font-size:22px;opacity:.7;transition:transform .2s}
+.hl:hover .hl-go{transform:translateX(4px);opacity:1}
+@media (max-width:560px){.hl{grid-template-columns:44px 1fr 20px;gap:12px;padding:14px 2px}.hl-n{width:38px;height:38px;font-size:13px}.hl-t b{font-size:19px}.hl-t small{font-size:14px}}
+</style>
+
+<style id="feedback-v4">
+.sum{margin-top:40px;border-top:2px solid var(--navy)}
+.sum-top{display:flex;justify-content:space-between;padding:12px 0;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--navy)}
+.sum-top span:last-child{color:var(--muted)}
+.sum-row{display:grid;grid-template-columns:240px 1fr;gap:28px;padding:26px 0;border-bottom:1px solid rgba(27,27,58,.2)}
+.sum-k{display:flex;flex-direction:column;gap:6px}
+.sum-n{font-size:clamp(56px,8vw,88px);font-weight:800;line-height:.9;letter-spacing:-.04em;color:var(--acc,var(--blue))}
+.sum-l{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.sum-v p{margin:0 0 14px;font-size:17px;line-height:1.5;color:var(--ink)}
+.sum-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sum-chips span{border:1.5px solid var(--navy);border-radius:999px;padding:6px 14px;font-weight:800;font-size:15px;color:var(--navy);background:transparent;transition:background .15s,color .15s}
+.sum-chips span:hover{background:var(--navy);color:#fff}
+.sum-chips.pink span{border-color:var(--pink);color:var(--pink)}
+.sum-chips.pink span:hover{background:var(--pink);color:#fff}
+.sum-big{padding:28px 0 6px;font-size:clamp(30px,5.2vw,58px);font-weight:800;line-height:1.02;letter-spacing:-.035em;color:var(--navy)}
+.sum-big span{color:var(--acc,var(--blue))}
+@media (max-width:640px){.sum-row{grid-template-columns:1fr;gap:12px;padding:20px 0}.sum-k{flex-direction:row;align-items:baseline;gap:12px}}
+</style>
+
+<style id="no-emoji">
+.emp-i{width:1.35em;height:auto;vertical-align:-0.2em;display:inline-block;flex:none}
+.rd-ic.rd-l{width:42px;height:42px;border-radius:12px;background:var(--blue);color:#fff;font-weight:800;font-size:16px;letter-spacing:-.02em}
+.acc .acc-ic.acc-n{background:var(--tint,var(--soft));color:var(--acc,var(--blue));font-weight:800;font-size:18px}
+.acc .acc-ic.acc-n .emp-i{width:30px}
+.hero-cta .emp-i{width:28px}
+.ghint-h .emp-i,.card h3 .emp-i{width:30px;margin-right:4px}
+.gic.gic-pdf{font-size:14px;font-weight:800;color:var(--blue);letter-spacing:.04em}
+.vplay i{display:block;width:0;height:0;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--blue);margin-left:4px}
+.footer .emp-i{width:28px;margin-right:6px}
+</style>
+
+<style id="tabs-clean">
+.tabs{border-bottom:0!important}
+.tab{border-bottom:0!important;margin-bottom:0}
+.tab[aria-selected="true"]{border-bottom-color:transparent!important}
+.progress{margin-top:2px}
+</style>
+</head>
+<body>
+<div id="nojs" class="nojs">Интерактив не работает в режиме предпросмотра. Открой файл в браузере Safari или Chrome.</div>
+<script>document.getElementById("nojs").remove();</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="emp" viewBox="0 0 100 62">
+    <g fill="var(--emp,#fbcb45)" stroke="var(--emp-line,#1b1b3a)" stroke-width="2.6"><circle cx="7.0" cy="54.0" r="5.2"/><circle cx="8.1" cy="44.2" r="5.2"/><circle cx="11.3" cy="34.9" r="5.2"/><circle cx="16.4" cy="26.6" r="5.2"/><circle cx="23.2" cy="19.6" r="5.2"/><circle cx="31.3" cy="14.4" r="5.2"/><circle cx="40.4" cy="11.1" r="5.2"/><circle cx="50.0" cy="10.0" r="5.2"/><circle cx="59.6" cy="11.1" r="5.2"/><circle cx="68.7" cy="14.4" r="5.2"/><circle cx="76.8" cy="19.6" r="5.2"/><circle cx="83.6" cy="26.6" r="5.2"/><circle cx="88.7" cy="34.9" r="5.2"/><circle cx="91.9" cy="44.2" r="5.2"/><circle cx="93.0" cy="54.0" r="5.2"/></g>
+    <path d="M8 54 A42 43 0 0 1 92 54 Z" fill="var(--emp,#fbcb45)" stroke="var(--emp-line,#1b1b3a)" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M30 30 q4 -6 10 -8" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" opacity=".7"/>
+    <path d="M40 44 l3 -3 M50 46 l3 -3 M60 44 l3 -3" stroke="var(--emp-line,#1b1b3a)" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+  </symbol>
+</svg>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand"><span class="che">che,</span><span>charlamos?</span></div>
+    <nav class="topnav" aria-label="Secciones">
+      <a href="#repaso">Repaso</a><a href="#teoria">Teoría</a><a href="#cancion">Canción</a><a href="#constructor">Constructor</a><a href="#practica">Práctica</a><a href="#hablar">Hablar</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <section class="hero2 snap" id="top">
+      <div>
+        <h1>Los <span>números</span></h1>
+        <p class="lead2"><b>Aprende a contar del 0 al millón:</b> primero las piezas, después las unes.</p>
+        <div class="hero-cta"><a class="btn-lg b-pri" href="#teoria">Empezar →</a><a class="btn-lg b-sec" href="#constructor"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> Constructor</a></div>
+      </div>
+      <div class="art" aria-hidden="true">
+        <div class="stk s1"><span class="d">1</span><span class="w">uno</span><span class="tr">(уно)</span></div>
+        <div class="stk s2"><span class="d">15</span><span class="w">quince</span><span class="tr">(кинсэ)</span></div>
+        <div class="stk s3"><span class="d">100</span><span class="w">cien</span><span class="tr">(сьен)</span></div>
+      </div>
+    
+      <a class="scroll-cue" href="#menu" aria-label="Ir al menú de la lección"><span>Desliza</span><i>↓</i></a>
+    </section>
+
+    <section class="sec hub snap" id="menu">
+      <div class="sec-label"><span class="sl-n">☰</span><span>Tu lección</span></div>
+      <h2 class="big">¿Qué hay en la lección?</h2>
+      <p class="sub2">6 разделов. Иди по порядку или выбери нужный.</p>
+      <nav class="hub-list" aria-label="Содержание урока"><a class="hl c-repaso" href="#repaso"><span class="hl-n">00</span><span class="hl-t"><b>Repaso</b><small>Как читаются буквы</small></span><span class="hl-go">→</span></a><a class="hl c-teoria" href="#teoria"><span class="hl-n">01</span><span class="hl-t"><b>Teoría</b><small>Числа от 0 до миллиона за 6 шагов</small></span><span class="hl-go">→</span></a><a class="hl c-cancion" href="#cancion"><span class="hl-n">♪</span><span class="hl-t"><b>Canción</b><small>Песня и видео, чтобы запомнить</small></span><span class="hl-go">→</span></a><a class="hl c-constr" href="#constructor"><span class="hl-n">02</span><span class="hl-t"><b>Constructor</b><small>Собери любое число до 999</small></span><span class="hl-go">→</span></a><a class="hl c-practica" href="#practica"><span class="hl-n">03</span><span class="hl-t"><b>Práctica</b><small>Игра и упражнения с проверкой</small></span><span class="hl-go">→</span></a><a class="hl c-hablar" href="#hablar"><span class="hl-n">04</span><span class="hl-t"><b>Hablar</b><small>Числа в твоей жизни</small></span><span class="hl-go">→</span></a></nav>
+    </section>
+
+
+    <section class="sec tint c-repaso snap" id="repaso">
+      <div class="sec-label"><span class="sl-n">00</span><span>Repaso</span></div>
+      <h2 class="big">¿Cómo suena <span style="color:var(--blue)">el español?</span></h2>
+      <p class="sub2">Вспомним правила чтения — по ним написана вся транскрипция в уроке.</p>
+      <div class="rd-grid"><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">Aa</span><h3>Как написано, так и читается</h3></div><p class="rd-sub">Каждая буква звучит, ничего не «проглатываем».</p><ul><li><span class="es"><span class="cp">H</span>ola</span> <span class="trn">(ола)</span></li><li><span class="es">Buenos días</span> <span class="trn">(буэнос диас)</span></li><li><span class="es">Buenas tardes</span> <span class="trn">(буэнас тардэс)</span></li><li><span class="es">Buenas noches</span> <span class="trn">(буэнас ночэс)</span></li></ul></div><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">H</span><h3>Буква H не читается!</h3></div><p class="rd-sub">Пишем, но никогда не произносим.</p><ul><li><span class="es"><span class="cp">H</span>ola</span> <span class="trn">(ола)</span></li><li><span class="es"><span class="cp">H</span>uevo</span> <span class="trn">(уэбо)</span> <span class=ru>— яйцо</span></li><li><span class="es"><span class="cp">H</span>uesos</span> <span class="trn">(уэсос)</span> <span class=ru>— кости</span></li></ul></div><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">J</span><h3>Буква J = русская Х</h3></div><p class="rd-sub">Звучит как «х», только чуть твёрже.</p><ul><li><span class="es"><span class="cp">J</span>ueves</span> <span class="trn">(хуэбэс)</span> <span class=ru>— четверг</span></li><li><span class="es"><span class="cp">J</span>unio</span> <span class="trn">(хуньо)</span> <span class=ru>— июнь</span></li><li><span class="es"><span class="cp">J</span>ulio</span> <span class="trn">(хульо)</span> <span class=ru>— июль</span></li><li><span class="es"><span class="cp">J</span>uego</span> <span class="trn">(хуэго)</span> <span class=ru>— игра</span></li></ul></div><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">LL</span><h3>Двойная LL = Й или Ж</h3></div><p class="rd-sub">Зависит от страны — оба варианта правильные.</p><ul><li><span class="es">Me <span class="cp">ll</span>amo</span> <span class="trn">(мэ йамо · мэ жамо)</span> <span class=ru>— меня зовут</span></li><li><span class="es">Mis <span class="cp">ll</span>aves</span> <span class="trn">(мис йабэс · мис жабэс)</span> <span class=ru>— мои ключи</span></li></ul><div class="rd-var"><span>Испания — <b>й</b></span><span>Аргентина — <b>ж</b> (или <b>ш</b>)</span></div></div><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">R</span><h3>R мягкая, RR твёрдая</h3></div><p class="rd-sub">Одна R — короткий удар, RR — раскатистая.</p><ul><li><span class="es">Pe<span class="cp">r</span>o / pe<span class="cp">r</span>a</span> <span class="trn">(пэро / пэра)</span> <span class=ru>— но / груша</span></li><li><span class="es">Pe<span class="cp">rr</span>o</span> <span class="trn">(пэрро)</span> <span class=ru>— собака</span></li><li><span class="es">Tu<span class="cp">rr</span>ón</span> <span class="trn">(туррон)</span> <span class=ru>— туррон, сладость</span></li></ul><div class="rd-var"><span>В начале слова R тоже твёрдая: <b>rosa</b> (рроса)</span></div></div><div class="rd"><div class="rd-h"><span class="rd-ic rd-l">V</span><h3>Буква V = русская Б</h3></div><p class="rd-sub">B и V в испанском звучат одинаково.</p><ul><li><span class="es"><span class="cp">V</span>aso</span> <span class="trn">(басо)</span> <span class=ru>— стакан</span></li><li><span class="es">A<span class="cp">v</span>e</span> <span class="trn">(абэ)</span> <span class=ru>— птица</span></li><li><span class="es"><span class="cp">V</span>aca</span> <span class="trn">(бака)</span> <span class=ru>— корова</span></li></ul></div></div>
+    </section>
+    <section class="sec tint c-teoria snap" id="teoria"><div class="narrow-in">
+      <div class="sec-label"><span class="sl-n">01</span><span>Teoría</span></div>
+      <h2 class="big">Paso a paso</h2>
+      <p class="sub2">6 шагов. Каждый следующий собирается из деталей предыдущего.</p>
+      <div class="legend-row">
+        <span><i class="dot" style="background:var(--blue)"></i><b class="cb">база</b> 0–10</span>
+        <span><i class="dot" style="background:var(--navy)"></i><b class="cn">новые слова</b> — запоминаем</span>
+        <span><i class="dot" style="background:var(--pink)"></i><b class="cp">соединители</b> dieci-, veinti-, y, -cientos</span>
+      </div>
+      <div class="rules">
+        <div class="rules-top"><span>Reglas básicas</span><span class="rl-hint" data-d="4 правила">4 правила · листай →</span></div>
+        <div class="rl-wrap"><div class="rl">
+          <div class="rl-n">0–15</div>
+          <div class="rl-t"><span class="rl-tag">De memoria</span><p>Учим наизусть: 0–10 — база, 11–15 — особая форма.</p></div>
+          <div class="rl-e"><span class="es"><span class="cb">uno, dos, tres</span>…</span><span class="es"><span class="cn">once, doce</span>…</span></div>
+        </div>
+        <div class="rl">
+          <div class="rl-n">16–29</div>
+          <div class="rl-t"><span class="rl-tag">Una palabra</span><p>Conector <span class="cp">dieci-</span> o <span class="cp">veinti-</span> + единица. Одно слово.</p></div>
+          <div class="rl-e"><span class="es"><span class="cp">dieci</span><span class="cb">séis</span></span><span class="ru">16 · дьесисэйс</span><span class="es"><span class="cp">veinti</span><span class="cb">dós</span></span><span class="ru">22 · бэинтидос</span></div>
+        </div>
+        <div class="rl">
+          <div class="rl-n">30+</div>
+          <div class="rl-t"><span class="rl-tag">Tres palabras</span><p>Decena + <span class="cp">y</span> + единица. Три слова.</p></div>
+          <div class="rl-e"><span class="es"><span class="cn">treinta</span> <span class="cp">y</span> <span class="cb">cuatro</span></span><span class="ru">34 · трэинта и куатро</span></div>
+        </div>
+        <div class="rl">
+          <div class="rl-n">1</div>
+          <div class="rl-t"><span class="rl-tag">Un / una</span><p>Перед существительным <b>uno</b> меняется: <b>un</b> — м. р., <b>una</b> — ж. р.</p></div>
+          <div class="rl-e"><span class="es">un día</span><span class="ru">м. р.</span><span class="es">una amiga</span><span class="ru">ж. р.</span></div>
+        </div>
+      </div></div>
+      <div class="tabs" role="tablist" aria-label="Pasos"><button class="tab" role="tab" id="tab1" aria-controls="step1" aria-selected="true" data-i="0"><span class="n">PASO 1</span><span class="r">0–10</span></button><button class="tab" role="tab" id="tab2" aria-controls="step2" aria-selected="false" data-i="1"><span class="n">PASO 2</span><span class="r">11–15</span></button><button class="tab" role="tab" id="tab3" aria-controls="step3" aria-selected="false" data-i="2"><span class="n">PASO 3</span><span class="r">16–29</span></button><button class="tab" role="tab" id="tab4" aria-controls="step4" aria-selected="false" data-i="3"><span class="n">PASO 4</span><span class="r">30–99</span></button><button class="tab" role="tab" id="tab5" aria-controls="step5" aria-selected="false" data-i="4"><span class="n">PASO 5</span><span class="r">100–900</span></button><button class="tab" role="tab" id="tab6" aria-controls="step6" aria-selected="false" data-i="5"><span class="n">PASO 6</span><span class="r">1000+</span></button></div>
+      <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+      <div class="panel" role="tabpanel" id="step1" aria-labelledby="tab1">
+    <div class="step-head"><span class="range">0–10</span><h2>¡ES LA BASE!</h2></div>
+    <p class="rule"><b>11 слов наизусть.</b> Из них собираются все остальные числа.</p>
+    <figure class="meme"><img src="data:image/jpeg;base64,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" alt="Мем: «Это база»" width="500" height="357"></figure>
+    <div id="g1"><div class="t wide"><span class="d">0</span><span class="w">cero</span><span class="tr">(сэро)</span></div><div class="tiles"><div class="t"><span class="d">1</span><span class="w">uno</span><span class="tr">(уно)</span></div><div class="t"><span class="d">2</span><span class="w">dos</span><span class="tr">(дос)</span></div><div class="t"><span class="d">3</span><span class="w">tres</span><span class="tr">(трэс)</span></div><div class="t"><span class="d">4</span><span class="w">cuatro</span><span class="tr">(куатро)</span></div><div class="t"><span class="d">5</span><span class="w">cinco</span><span class="tr">(синко)</span></div><div class="t"><span class="d">6</span><span class="w">seis</span><span class="tr">(сэйс)</span></div><div class="t"><span class="d">7</span><span class="w">siete</span><span class="tr">(сьетэ)</span></div><div class="t"><span class="d">8</span><span class="w">ocho</span><span class="tr">(очо)</span></div><div class="t"><span class="d">9</span><span class="w">nueve</span><span class="tr">(нуэвэ)</span></div><div class="t"><span class="d">10</span><span class="w">diez</span><span class="tr">(дьес)</span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g1')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    <div class="takeaway"><span class="ojo">¡Ojo!</span><span><b>un</b> coche — м. р. · <b>una</b> chica — ж. р.</span></div>
+  
+    <div class="emp-block">
+      <div class="emp-head">
+        <svg class="emp emp-big" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg>
+        <div>
+          <h3>Contamos empanadas</h3>
+          <p><b>Hay</b> (ай) — «есть, имеется». <b>Empanada</b> (эмпанада) — аргентинский пирожок с начинкой.</p>
+        </div>
+      </div>
+      <div class="ec-grid"><div class="ec"><span class="ec-n">1</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">una</span> empanada.</div><div class="ec-t">(ай уна эмпанада)</div></div></div><div class="ec"><span class="ec-n">2</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">dos</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">3</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">tres</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">4</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">cuatro</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">5</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">cinco</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">6</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">seis</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">7</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">siete</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">8</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">ocho</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">9</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">nueve</span> empanadas.</div></div></div><div class="ec"><span class="ec-n">10</span><div class="ec-b"><div class="ec-i"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div><div class="ec-s">Hay <span class="cb">diez</span> empanadas.</div></div></div></div>
+      <div class="takeaway"><span class="ojo">¡Ojo!</span><span><b>una</b> empanada — ж. р. · <b>un</b> café — м. р.</span></div>
+    </div>
+</div><div class="panel" role="tabpanel" id="step2" aria-labelledby="tab2" hidden>
+    <div class="step-head"><span class="range dk">11–15</span><h2>Cinco palabras nuevas</h2></div>
+    <p class="rule"><b>Наизусть.</b> Все заканчиваются на <b class="cn">-ce</b> и похожи на числа из базы.</p>
+    <div id="g2"><div class="rows"><div class="rw"><span class="d">11</span><span><span class="w"><span class="cn">once</span></span><span class="tr">(онсэ)</span></span><span class="x">похоже на <span class="cb">uno</span></span></div><div class="rw"><span class="d">12</span><span><span class="w"><span class="cn">doce</span></span><span class="tr">(досэ)</span></span><span class="x">похоже на <span class="cb">dos</span></span></div><div class="rw"><span class="d">13</span><span><span class="w"><span class="cn">trece</span></span><span class="tr">(трэсэ)</span></span><span class="x">похоже на <span class="cb">tres</span></span></div><div class="rw"><span class="d">14</span><span><span class="w"><span class="cn">catorce</span></span><span class="tr">(каторсэ)</span></span><span class="x">похоже на <span class="cb">cuatro</span></span></div><div class="rw"><span class="d">15</span><span><span class="w"><span class="cn">quince</span></span><span class="tr">(кинсэ)</span></span><span class="x">похоже на <span class="cb">cinco</span></span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g2')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    
+    <div class="emp-fact">
+      <div class="ef-icons"><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><span class="ef-sep"></span><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg><svg class="emp" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg></div>
+      <div><b>Dato argentino</b> В Аргентине эмпанадас заказывают <b>дюжинами</b>: <i>una docena</i> (уна досэна) — 12 штук, <i>media docena</i> (мэдья досэна) — 6.<br><span class="ec-s">Quiero <span class="cn">doce</span> empanadas, por favor.</span> <span class="ec-t">(кьеро досэ эмпанадас, пор фабор)</span></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h3 style="margin-bottom:4px"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> Mini-test</h3><p style="margin:0 0 6px;color:var(--muted);font-size:14.5px">Выбери правильный вариант.</p><div id="m1"><div class="tf" data-correct="doce" data-full="doce" data-trfull="досэ"><span class="stmt"><span class="num">1.</span><b style="color:var(--blue);font-size:18px">12</b></span><span class="tf-opts"><button class="tf-btn" data-v="doce" onclick="pickTF(this)">doce</button><button class="tf-btn" data-v="dos" onclick="pickTF(this)">dos</button><button class="tf-btn" data-v="trece" onclick="pickTF(this)">trece</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="catorce" data-full="catorce" data-trfull="каторсэ"><span class="stmt"><span class="num">2.</span><b style="color:var(--blue);font-size:18px">14</b></span><span class="tf-opts"><button class="tf-btn" data-v="cuatro" onclick="pickTF(this)">cuatro</button><button class="tf-btn" data-v="catorce" onclick="pickTF(this)">catorce</button><button class="tf-btn" data-v="cuarenta" onclick="pickTF(this)">cuarenta</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="quince" data-full="quince" data-trfull="кинсэ"><span class="stmt"><span class="num">3.</span><b style="color:var(--blue);font-size:18px">15</b></span><span class="tf-opts"><button class="tf-btn" data-v="cinco" onclick="pickTF(this)">cinco</button><button class="tf-btn" data-v="quince" onclick="pickTF(this)">quince</button><button class="tf-btn" data-v="cincuenta" onclick="pickTF(this)">cincuenta</button></span><span class="tf-sol"></span></div></div><div class="controls"><button class="btn btn-dark" onclick="checkChoice('m1','ms1')">Comprobar</button><button class="btn btn-ghost" onclick="resetChoice('m1','ms1')">Reiniciar</button><span class="score" id="ms1"></span></div></div>
+  </div><div class="panel" role="tabpanel" id="step3" aria-labelledby="tab3" hidden>
+    <div class="step-head"><span class="range">16–29</span><h2>Primeras construcciones</h2></div>
+    <p class="rule"><span class="cp">Соединитель</span> + <span class="cb">база</span> = <b>одно слово</b>.</p>
+
+    <h3 style="margin:22px 0 10px">16–19: «diez y…»</h3>
+    <div class="formula"><span class="pc cp">dieci</span><span class="pl">+</span><span class="pc cb">seis</span><span class="pl">=</span><span><span class="cp">dieci</span><span class="cb">séis</span></span></div>
+    <div id="g3"><div class="rows"><div class="rw"><span class="d">16</span><span><span class="w"><span class="cp">dieci</span><span class="cb">séis</span></span><span class="tr">(дьесисэйс)</span></span><span class="x">diez + seis</span></div><div class="rw"><span class="d">17</span><span><span class="w"><span class="cp">dieci</span><span class="cb">siete</span></span><span class="tr">(дьесисьетэ)</span></span><span class="x">diez + siete</span></div><div class="rw"><span class="d">18</span><span><span class="w"><span class="cp">dieci</span><span class="cb">ocho</span></span><span class="tr">(дьесиочо)</span></span><span class="x">diez + ocho</span></div><div class="rw"><span class="d">19</span><span><span class="w"><span class="cp">dieci</span><span class="cb">nueve</span></span><span class="tr">(дьесинуэвэ)</span></span><span class="x">diez + nueve</span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g3')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+
+    <h3 style="margin:30px 0 10px">20–29: «veinte y…»</h3>
+    <p class="rule">Новое слово: <b class="cn">veinte</b>. Дальше: <span class="cp">veinti</span> + <span class="cb">база</span>.</p>
+    <div class="formula"><span class="pc cp">veinti</span><span class="pl">+</span><span class="pc cb">uno</span><span class="pl">=</span><span><span class="cp">veinti</span><span class="cb">uno</span></span></div>
+    <div id="g4"><div class="rows"><div class="rw"><span class="d">20</span><span><span class="w"><span class="cn">veinte</span></span><span class="tr">(бэинтэ)</span></span><span class="x">palabra nueva</span></div><div class="rw"><span class="d">21</span><span><span class="w"><span class="cp">veinti</span><span class="cb">uno</span></span><span class="tr">(бэинтиуно)</span></span><span class="x">veinte + uno</span></div><div class="rw"><span class="d">22</span><span><span class="w"><span class="cp">veinti</span><span class="cb">dós</span></span><span class="tr">(бэинтидос)</span></span><span class="x">veinte + dos</span></div><div class="rw"><span class="d">23</span><span><span class="w"><span class="cp">veinti</span><span class="cb">trés</span></span><span class="tr">(бэинтитрэс)</span></span><span class="x">veinte + tres</span></div><div class="rw"><span class="d">24</span><span><span class="w"><span class="cp">veinti</span><span class="cb">cuatro</span></span><span class="tr">(бэинтикуатро)</span></span><span class="x">veinte + cuatro</span></div><div class="rw"><span class="d">25</span><span><span class="w"><span class="cp">veinti</span><span class="cb">cinco</span></span><span class="tr">(бэинтисинко)</span></span><span class="x">veinte + cinco</span></div><div class="rw"><span class="d">26</span><span><span class="w"><span class="cp">veinti</span><span class="cb">séis</span></span><span class="tr">(бэинтисэйс)</span></span><span class="x">veinte + seis</span></div><div class="rw"><span class="d">27</span><span><span class="w"><span class="cp">veinti</span><span class="cb">siete</span></span><span class="tr">(бэинтисьетэ)</span></span><span class="x">veinte + siete</span></div><div class="rw"><span class="d">28</span><span><span class="w"><span class="cp">veinti</span><span class="cb">ocho</span></span><span class="tr">(бэинтиочо)</span></span><span class="x">veinte + ocho</span></div><div class="rw"><span class="d">29</span><span><span class="w"><span class="cp">veinti</span><span class="cb">nueve</span></span><span class="tr">(бэинтинуэвэ)</span></span><span class="x">veinte + nueve</span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g4')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    <div class="takeaway"><span class="ojo">Ударение</span><span><b>16, 22, 23, 26</b> · <b>veintiún</b> años</span></div>
+    <div class="card" style="margin-top:16px"><h3 style="margin-bottom:4px"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> Mini-test</h3><p style="margin:0 0 6px;color:var(--muted);font-size:14.5px">Выбери правильный вариант.</p><div id="m2"><div class="tf" data-correct="diecisiete" data-full="diecisiete" data-trfull="дьесисьетэ"><span class="stmt"><span class="num">1.</span><b style="color:var(--blue);font-size:18px">17</b></span><span class="tf-opts"><button class="tf-btn" data-v="diecisiete" onclick="pickTF(this)">diecisiete</button><button class="tf-btn" data-v="diez siete" onclick="pickTF(this)">diez siete</button><button class="tf-btn" data-v="setenta" onclick="pickTF(this)">setenta</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="veintidós" data-full="veintidós" data-trfull="бэинтидос"><span class="stmt"><span class="num">2.</span><b style="color:var(--blue);font-size:18px">22</b></span><span class="tf-opts"><button class="tf-btn" data-v="veinte dos" onclick="pickTF(this)">veinte dos</button><button class="tf-btn" data-v="veintidós" onclick="pickTF(this)">veintidós</button><button class="tf-btn" data-v="doce" onclick="pickTF(this)">doce</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="veintiséis" data-full="veintiséis" data-trfull="бэинтисэйс"><span class="stmt"><span class="num">3.</span><b style="color:var(--blue);font-size:18px">26</b></span><span class="tf-opts"><button class="tf-btn" data-v="veintiséis" onclick="pickTF(this)">veintiséis</button><button class="tf-btn" data-v="veinteséis" onclick="pickTF(this)">veinteséis</button><button class="tf-btn" data-v="dieciséis" onclick="pickTF(this)">dieciséis</button></span><span class="tf-sol"></span></div></div><div class="controls"><button class="btn btn-dark" onclick="checkChoice('m2','ms2')">Comprobar</button><button class="btn btn-ghost" onclick="resetChoice('m2','ms2')">Reiniciar</button><span class="score" id="ms2"></span></div></div>
+  </div><div class="panel" role="tabpanel" id="step4" aria-labelledby="tab4" hidden>
+    <div class="step-head"><span class="range dk">30–99</span><h2>Decenas + y + base</h2></div>
+    <p class="rule"><b>7 новых десятков</b>, все на <b class="cn">-nta</b>.</p>
+    <div id="g5"><div class="rows"><div class="rw"><span class="d">30</span><span><span class="w"><span class="cn">treinta</span></span><span class="tr">(трэинта)</span></span><span class="x">похоже на <span class="cb">tres</span></span></div><div class="rw"><span class="d">40</span><span><span class="w"><span class="cn">cuarenta</span></span><span class="tr">(куарэнта)</span></span><span class="x">похоже на <span class="cb">cuatro</span></span></div><div class="rw"><span class="d">50</span><span><span class="w"><span class="cn">cincuenta</span></span><span class="tr">(синкуэнта)</span></span><span class="x">похоже на <span class="cb">cinco</span></span></div><div class="rw"><span class="d">60</span><span><span class="w"><span class="cn">sesenta</span></span><span class="tr">(сэсэнта)</span></span><span class="x">похоже на <span class="cb">seis</span></span></div><div class="rw"><span class="d">70</span><span><span class="w"><span class="cn">setenta</span></span><span class="tr">(сэтэнта)</span></span><span class="x">похоже на <span class="cb">siete</span></span></div><div class="rw"><span class="d">80</span><span><span class="w"><span class="cn">ochenta</span></span><span class="tr">(очэнта)</span></span><span class="x">похоже на <span class="cb">ocho</span></span></div><div class="rw"><span class="d">90</span><span><span class="w"><span class="cn">noventa</span></span><span class="tr">(нобэнта)</span></span><span class="x">похоже на <span class="cb">nueve</span></span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g5')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    <div class="takeaway"><span class="ojo">¡Ojo!</span><span>se<b>s</b>enta 60 ← <b>s</b>eis · se<b>t</b>enta 70 ← sie<b>t</b>e</span></div>
+
+    <h3 style="margin:30px 0 10px">Любое число 31–99</h3>
+    <p class="rule"><b>Три слова:</b> десяток + <span class="cp">y</span> + <span class="cb">база</span>.</p>
+    <div class="formula"><span class="pc cn">cuarenta</span><span class="pl">+</span><span class="pc cp">y</span><span class="pl">+</span><span class="pc cb">cinco</span><span class="pl">=</span><span><span class="cn">cuarenta</span> <span class="cp">y</span> <span class="cb">cinco</span></span></div>
+    <div id="g6"><div class="rows"><div class="rw"><span class="d">31</span><span><span class="w"><span class="cn">treinta</span> <span class="cp">y</span> <span class="cb">uno</span></span><span class="tr">(трэинта и уно)</span></span><span class="x">30 + 1</span></div><div class="rw"><span class="d">45</span><span><span class="w"><span class="cn">cuarenta</span> <span class="cp">y</span> <span class="cb">cinco</span></span><span class="tr">(куарэнта и синко)</span></span><span class="x">40 + 5</span></div><div class="rw"><span class="d">55</span><span><span class="w"><span class="cn">cincuenta</span> <span class="cp">y</span> <span class="cb">cinco</span></span><span class="tr">(синкуэнта и синко)</span></span><span class="x">50 + 5</span></div><div class="rw"><span class="d">61</span><span><span class="w"><span class="cn">sesenta</span> <span class="cp">y</span> <span class="cb">uno</span></span><span class="tr">(сэсэнта и уно)</span></span><span class="x">60 + 1</span></div><div class="rw"><span class="d">89</span><span><span class="w"><span class="cn">ochenta</span> <span class="cp">y</span> <span class="cb">nueve</span></span><span class="tr">(очэнта и нуэвэ)</span></span><span class="x">80 + 9</span></div><div class="rw"><span class="d">93</span><span><span class="w"><span class="cn">noventa</span> <span class="cp">y</span> <span class="cb">tres</span></span><span class="tr">(нобэнта и трэс)</span></span><span class="x">90 + 3</span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g6')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    <div class="card" style="margin-top:16px"><h3 style="margin-bottom:4px"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> Mini-test</h3><p style="margin:0 0 6px;color:var(--muted);font-size:14.5px">Выбери правильный вариант.</p><div id="m3"><div class="tf" data-correct="sesenta" data-full="sesenta" data-trfull="сэсэнта"><span class="stmt"><span class="num">1.</span><b style="color:var(--blue);font-size:18px">60</b></span><span class="tf-opts"><button class="tf-btn" data-v="setenta" onclick="pickTF(this)">setenta</button><button class="tf-btn" data-v="sesenta" onclick="pickTF(this)">sesenta</button><button class="tf-btn" data-v="seiscientos" onclick="pickTF(this)">seiscientos</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="setenta" data-full="setenta" data-trfull="сэтэнта"><span class="stmt"><span class="num">2.</span><b style="color:var(--blue);font-size:18px">70</b></span><span class="tf-opts"><button class="tf-btn" data-v="setenta" onclick="pickTF(this)">setenta</button><button class="tf-btn" data-v="sesenta" onclick="pickTF(this)">sesenta</button><button class="tf-btn" data-v="siete" onclick="pickTF(this)">siete</button></span><span class="tf-sol"></span></div><div class="tf" data-correct="ochenta y ocho" data-full="ochenta y ocho" data-trfull="очэнта и очо"><span class="stmt"><span class="num">3.</span><b style="color:var(--blue);font-size:18px">88</b></span><span class="tf-opts"><button class="tf-btn" data-v="ochenta y ocho" onclick="pickTF(this)">ochenta y ocho</button><button class="tf-btn" data-v="ochentiocho" onclick="pickTF(this)">ochentiocho</button><button class="tf-btn" data-v="ocho y ochenta" onclick="pickTF(this)">ocho y ochenta</button></span><span class="tf-sol"></span></div></div><div class="controls"><button class="btn btn-dark" onclick="checkChoice('m3','ms3')">Comprobar</button><button class="btn btn-ghost" onclick="resetChoice('m3','ms3')">Reiniciar</button><span class="score" id="ms3"></span></div></div>
+  </div><div class="panel" role="tabpanel" id="step5" aria-labelledby="tab5" hidden>
+    <div class="step-head"><span class="range">100–900</span><h2>Centenas: base + -cientos</h2></div>
+    <p class="rule"><b class="cn">cien</b> = ровно 100 · <b class="cn">ciento</b> = 101–199 · <span class="cb">база</span> + <span class="cp">cientos</span>. Три исключения — наизусть.</p>
+    <div class="formula"><span class="pc cb">dos</span><span class="pl">+</span><span class="pc cp">cientos</span><span class="pl">=</span><span><span class="cb">dos</span><span class="cp">cientos</span></span></div>
+    <div id="g7"><div class="rows"><div class="rw"><span class="d">100</span><span><span class="w"><span class="cn">cien</span></span><span class="tr">(сьен)</span></span><span class="x">ровно сто</span></div><div class="rw"><span class="d">101</span><span><span class="w"><span class="cn">ciento</span> <span class="cb">uno</span></span><span class="tr">(сьенто уно)</span></span><span class="x">101–199 → ciento</span></div><div class="rw"><span class="d">200</span><span><span class="w"><span class="cb">dos</span><span class="cp">cientos</span></span><span class="tr">(доссьентос)</span></span><span class="x">2 × 100</span></div><div class="rw"><span class="d">300</span><span><span class="w"><span class="cb">tres</span><span class="cp">cientos</span></span><span class="tr">(трэссьентос)</span></span><span class="x">3 × 100</span></div><div class="rw"><span class="d">400</span><span><span class="w"><span class="cb">cuatro</span><span class="cp">cientos</span></span><span class="tr">(куатросьентос)</span></span><span class="x">4 × 100</span></div><div class="rw"><span class="d">500</span><span><span class="w"><span class="cn">quinientos</span></span><span class="tr">(киньентос)</span></span><span class="x"><span class="cp">исключение</span></span></div><div class="rw"><span class="d">600</span><span><span class="w"><span class="cb">seis</span><span class="cp">cientos</span></span><span class="tr">(сэйссьентос)</span></span><span class="x">6 × 100</span></div><div class="rw"><span class="d">700</span><span><span class="w"><span class="cn">setecientos</span></span><span class="tr">(сэтэсьентос)</span></span><span class="x"><span class="cp">исключение</span></span></div><div class="rw"><span class="d">800</span><span><span class="w"><span class="cb">ocho</span><span class="cp">cientos</span></span><span class="tr">(очосьентос)</span></span><span class="x">8 × 100</span></div><div class="rw"><span class="d">900</span><span><span class="w"><span class="cn">novecientos</span></span><span class="tr">(нобэсьентос)</span></span><span class="x"><span class="cp">исключение</span></span></div></div></div>
+    <div class="selfcheck"><button class="btn btn-ghost" onclick="hideWords(this,'g7')">Скрыть слова</button><span>Вспомни слово и нажми на карточку.</span></div>
+    <h3 style="margin:30px 0 10px">Сотня + остаток</h3>
+    <p class="rule">Сотня + число, <b>без y</b>.</p>
+    <div class="rows"><div class="rw"><span class="d">618</span><span><span class="w">seiscientos dieciocho</span><span class="tr">(сэйссьентос дьесиочо)</span></span><span class="x">без y</span></div><div class="rw"><span class="d">285</span><span><span class="w">doscientos ochenta <span class="cp">y</span> cinco</span><span class="tr">(доссьентос очэнта и синко)</span></span><span class="x">y только внутри 85</span></div><div class="rw"><span class="d">703</span><span><span class="w">setecientos tres</span><span class="tr">(сэтэсьентос трэс)</span></span><span class="x">без y</span></div></div>
+    <div class="takeaway"><span class="ojo">Род</span><span>trescient<b>os</b> gramos · quinient<b>as</b> casas</span></div>
+  </div><div class="panel" role="tabpanel" id="step6" aria-labelledby="tab6" hidden>
+    <div class="step-head"><span class="range dk">1000+</span><h2>Mil y millón</h2></div>
+    <p class="rule"><b class="cn">mil</b> не меняется · <b class="cn">millón → millones</b> + <b>de</b></p>
+    <div class="rows"><div class="rw"><span class="d">1 000</span><span><span class="w"><span class="cn">mil</span></span><span class="tr">(миль)</span></span><span class="x">не меняется</span></div><div class="rw"><span class="d">2 000</span><span><span class="w"><span class="cb">dos</span> <span class="cn">mil</span></span><span class="tr">(дос миль)</span></span><span class="x">mil без -es</span></div><div class="rw"><span class="d">13 000</span><span><span class="w"><span class="cn">trece</span> <span class="cn">mil</span></span><span class="tr">(трэсэ миль)</span></span><span class="x"></span></div><div class="rw"><span class="d">5 242</span><span><span class="w">cinco mil doscientos cuarenta <span class="cp">y</span> dos</span><span class="tr">(синко миль доссьентос куарэнта и дос)</span></span><span class="x"></span></div><div class="rw"><span class="d">1 000 000</span><span><span class="w"><span class="cn">un millón</span></span><span class="tr">(ун мийон)</span></span><span class="x">+ de: un millón de personas</span></div><div class="rw"><span class="d">7 000 000</span><span><span class="w"><span class="cb">siete</span> <span class="cn">millones</span></span><span class="tr">(сьетэ мийонэс)</span></span><span class="x">есть мн. число</span></div><div class="rw"><span class="d">1 000 000 000</span><span><span class="w"><span class="cn">mil millones</span></span><span class="tr">(миль мийонэс)</span></span><span class="x">это миллиард</span></div></div>
+    <h3 style="margin:30px 0 10px">Годы</h3>
+    <p class="rule">Год читаем как обычное число.</p>
+    <div class="rows"><div class="rw"><span class="d">1999</span><span><span class="w">mil novecientos noventa <span class="cp">y</span> nueve</span><span class="tr">(миль нобэсьентос нобэнта и нуэвэ)</span></span><span class="x">год</span></div><div class="rw"><span class="d">2026</span><span><span class="w">dos mil veintiséis</span><span class="tr">(дос миль бэинтисэйс)</span></span><span class="x">этот год</span></div></div>
+    <div class="takeaway"><span class="ojo">Правило</span><span><span class="cp">y</span> — <b>только</b> между десятками и единицами</span></div>
+  </div>
+      <div class="pager"><button class="pg-prev" id="pg-prev">← Anterior</button><button class="pg-next" id="pg-next">Siguiente →</button></div>
+    </div>
+    </section>
+
+    <section class="sec tint c-cancion snap" id="cancion"><div class="narrow-in">
+      <div class="sec-label"><span class="sl-n">♪</span><span>Canción</span></div>
+      <h2 class="big">Canta y recuerda</h2>
+      <p class="sub2">Песня для запоминания чисел от 0 до 100 и видеоурок videoELE. Посмотри после теории.</p>
+      <a class="vcard" href="https://www.youtube.com/watch?v=qL9Y9Ks7kYg" target="_blank" rel="noopener">
+        <span class="vthumb" style="background-image:url('https://i.ytimg.com/vi/qL9Y9Ks7kYg/hqdefault.jpg')"><span class="vplay"><i></i></span></span>
+        <span class="vinfo">
+          <span class="vtag">YouTube · 0–100</span>
+          <span class="vtitle">Los números del 0 al 100</span>
+          <span class="vsub">Песня для запоминания чисел</span>
+          <span class="vbtn">Ver vídeo ↗</span>
+        </span>
+      </a>
+      <a class="vcard" href="https://youtu.be/WxWY5SjJj3I" target="_blank" rel="noopener">
+        <span class="vthumb" style="background-image:url('https://i.ytimg.com/vi/WxWY5SjJj3I/hqdefault.jpg')"><span class="vplay"><i></i></span></span>
+        <span class="vinfo">
+          <span class="vtag">YouTube · videoELE</span>
+          <span class="vtitle">Números de 1 a 20</span>
+          <span class="vsub">Видеоурок videoELE, A1</span>
+          <span class="vbtn">Ver vídeo ↗</span>
+        </span>
+      </a>
+    </div>
+    </section>
+  </div>
+
+  <section class="band snap" id="constructor">
+    <div class="wrap">
+      <div class="sec-label"><span class="sl-n">02</span><span>Constructor</span></div>
+      <h2 class="big">Construye tu número</h2>
+      <p class="sub2">Нажимай цифры и смотри, из каких деталей состоит число.</p>
+      <div class="two"><div class="col1"><h3 style="margin:0 0 12px">Del número a la palabra</h3>
+        
+    <div class="builder">
+      <div class="screen">
+        <div class="big" id="b-num">47</div>
+        <div class="word" id="b-word"></div>
+        <div class="trs" id="b-tr"></div>
+        <div class="why" id="b-why"></div>
+        
+      </div>
+      <div class="dial"><div class="lbl">СОТНИ</div><div class="keys" data-k="h"></div></div>
+      <div class="dial"><div class="lbl">ДЕСЯТКИ</div><div class="keys" data-k="t"></div></div>
+      <div class="dial"><div class="lbl">ЕДИНИЦЫ</div><div class="keys" data-k="u"></div></div>
+    </div>
+
+    
+    </div><div class="col2"><h3 style="margin:0 0 12px">De las piezas al número</h3><p style="margin:0 0 12px">Собери слово из деталей. Есть лишние.</p>
+    <div class="builder">
+      <div class="round" id="g-round" style="text-align:center;font-weight:800;color:var(--muted);font-size:14px;margin-bottom:8px"></div>
+      <div class="target" id="g-target"></div>
+      <div class="slot" id="g-slot" style="margin-top:14px"></div>
+      <div class="pieces" id="g-pieces"></div>
+      <div class="bg-fb" id="g-fb" aria-live="polite"></div>
+      <div class="controls" style="justify-content:center">
+        <button class="btn btn-dark" id="g-check">Comprobar</button>
+        <button class="btn btn-ghost" id="g-clear">Otra vez</button>
+        <button class="btn btn-dark" id="g-next" hidden>Siguiente número →</button>
+      </div>
+    </div>
+  
+      </div></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="sec tint c-practica snap" id="practica"><div class="narrow-in">
+      <div class="sec-label"><span class="sl-n">03</span><span>Práctica</span></div>
+      <h2 class="big">¡A practicar!</h2>
+      <p class="sub2">Выполняй задания по порядку.</p>
+      <a class="gcard" href="https://videoele.com/Archivos/A1_Numeros20-actividad.pdf" target="_blank" rel="noopener">
+        <span class="gic gic-pdf">PDF</span>
+        <span class="ginfo">
+          <span class="vtag">Guía didáctica · videoELE · A1</span>
+          <span class="gtitle">Números de 1 a 20: actividades</span>
+          <span class="gsub">Задания к видео: числа, сложение и умножение, счёт от 20 до 1.</span>
+        </span>
+        <span class="vbtn">Abrir PDF ↗</span>
+      </a>
+      <div class="ghint">
+        <div class="ghint-h"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> Подсказка к заданию 4 · <i>Multiplica</i></div>
+        <div class="ghint-row">
+          <span class="op">×</span>
+          <span><b>por</b> <span class="trn">(пор)</span> — «умножить на»</span>
+        </div>
+        <div class="ghint-row">
+          <span class="op">=</span>
+          <span>в задании — просто запятая: <b>…, seis</b>; в речи часто говорят <b>son</b> <span class="trn">(сон)</span></span>
+        </div>
+        <div class="ghint-ex">
+          <div><span class="cb">3 × 2 = 6</span> → <b>tres por dos, seis</b> <span class="trn">(трэс пор дос, сэйс)</span></div>
+          <div><span class="cb">4 × 4 = 16</span> → <b>cuatro por cuatro, dieciséis</b> <span class="trn">(куатро пор куатро, дьесисэйс)</span></div>
+          <div><span class="cb">5 × 3 = 15</span> → <b>cinco por tres son quince</b> <span class="trn">(синко пор трэс сон кинсэ)</span></div>
+        </div>
+      </div>
+      <details class="acc" open>
+      <summary><span class="acc-ic acc-n">1</span><span class="acc-tt"><b>Une las parejas</b><small>Соедини пары · 6 пар</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+  <div class="card match-game" data-pairs='[["quince", "15", "кинсэ"], ["dieciocho", "18", "дьесиочо"], ["cuarenta y cuatro", "44", "куарэнта и куатро"], ["cien", "100", "сьен"], ["quinientos", "500", "киньентос"], ["mil", "1000", "миль"]]'>
+    <div class="match-head">
+      <h3 style="margin:0">Une la palabra con el número</h3>
+      <span class="count">0 / 6</span>
+    </div>
+    <p style="margin:0 0 16px;color:var(--muted)">Соедини слово с числом.</p>
+    <div class="match">
+      <div class="col colA"></div>
+      <div class="col colB"></div>
+    </div>
+    <div class="win">¡Genial! Todas las parejas son correctas</div>
+    <div class="controls"><button class="btn btn-ghost reset">Reiniciar</button></div>
+  </div>
+
+  </div>
+    </details>
+
+      <details class="acc">
+      <summary><span class="acc-ic acc-n">2</span><span class="acc-tt"><b>Números con letras</b><small>Напиши словами · 8 чисел</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+  <p style="margin:0 0 16px;color:var(--muted)">Напиши число словами.</p>
+  <div id="ex1">
+    <div class="q"><span class="num">1.</span><div class="body"><b style="color:var(--blue);font-size:18px">17</b> → <input class="blank" data-a="diecisiete" data-tr="дьесисьетэ" aria-label="17 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">2.</span><div class="body"><b style="color:var(--blue);font-size:18px">22</b> → <input class="blank" data-a="veintidós" data-tr="бэинтидос" aria-label="22 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">3.</span><div class="body"><b style="color:var(--blue);font-size:18px">46</b> → <input class="blank" data-a="cuarenta y seis" data-tr="куарэнта и сэйс" aria-label="46 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">4.</span><div class="body"><b style="color:var(--blue);font-size:18px">100</b> → <input class="blank" data-a="cien" data-tr="сьен" aria-label="100 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">5.</span><div class="body"><b style="color:var(--blue);font-size:18px">105</b> → <input class="blank" data-a="ciento cinco" data-tr="сьенто синко" aria-label="105 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">6.</span><div class="body"><b style="color:var(--blue);font-size:18px">150</b> → <input class="blank" data-a="ciento cincuenta" data-tr="сьенто синкуэнта" aria-label="150 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">7.</span><div class="body"><b style="color:var(--blue);font-size:18px">500</b> → <input class="blank" data-a="quinientos" data-tr="киньентос" aria-label="500 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+    <div class="q"><span class="num">8.</span><div class="body"><b style="color:var(--blue);font-size:18px">2026</b> → <input class="blank" data-a="dos mil veintiséis" data-tr="дос миль бэинтисэйс" aria-label="2026 en letras" style="min-width:190px"> <span class="sol"></span></div></div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-dark" onclick="check('ex1','s1')">Comprobar</button>
+    <button class="btn btn-ghost" onclick="reset('ex1','s1')">Reiniciar</button>
+    <span class="score" id="s1"></span>
+  </div>
+
+  </div>
+    </details>
+
+      <details class="acc">
+      <summary><span class="acc-ic acc-n">3</span><span class="acc-tt"><b>Un, cien, mil</b><small>Выбери вариант · 8 предложений</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+  <p style="margin:0 0 14px;color:var(--muted)">Выбери правильный вариант.</p>
+  <div id="ex2">
+    <div class="tf" data-correct="un" data-why="перед существительным м. р. uno → un" data-full="Tengo un gato." data-trfull="тэнго ун гато"><span class="stmt"><span class="num">1.</span>Tengo ___ gato.</span><span class="tf-opts"><button class="tf-btn" data-v="uno" onclick="pickTF(this)">uno</button><button class="tf-btn" data-v="un" onclick="pickTF(this)">un</button><button class="tf-btn" data-v="una" onclick="pickTF(this)">una</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="una" data-why="amiga — женский род" data-full="Tengo una amiga en Madrid." data-trfull="тэнго уна амига эн мадрид"><span class="stmt"><span class="num">2.</span>Tengo ___ amiga en Madrid.</span><span class="tf-opts"><button class="tf-btn" data-v="un" onclick="pickTF(this)">un</button><button class="tf-btn" data-v="uno" onclick="pickTF(this)">uno</button><button class="tf-btn" data-v="una" onclick="pickTF(this)">una</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="treinta y un" data-why="uno → un и в составных числах" data-full="El mes tiene treinta y un días." data-trfull="эль мэс тьенэ трэинта и ун диас"><span class="stmt"><span class="num">3.</span>El mes tiene ___ días.</span><span class="tf-opts"><button class="tf-btn" data-v="treinta y un" onclick="pickTF(this)">treinta y un</button><button class="tf-btn" data-v="treinta y uno" onclick="pickTF(this)">treinta y uno</button><button class="tf-btn" data-v="treinta un" onclick="pickTF(this)">treinta un</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="cien" data-why="ровно 100 — cien" data-full="El billete cuesta cien euros." data-trfull="эль бийетэ куэста сьен эурос"><span class="stmt"><span class="num">4.</span>El billete cuesta ___ euros.</span><span class="tf-opts"><button class="tf-btn" data-v="ciento" onclick="pickTF(this)">ciento</button><button class="tf-btn" data-v="cien" onclick="pickTF(this)">cien</button><button class="tf-btn" data-v="cientos" onclick="pickTF(this)">cientos</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="ciento" data-why="101–199 — ciento" data-full="El libro cuesta ciento veinte euros." data-trfull="эль либро куэста сьенто бэинтэ эурос"><span class="stmt"><span class="num">5.</span>El libro cuesta ___ veinte euros.</span><span class="tf-opts"><button class="tf-btn" data-v="cien" onclick="pickTF(this)">cien</button><button class="tf-btn" data-v="ciento" onclick="pickTF(this)">ciento</button><button class="tf-btn" data-v="cientos" onclick="pickTF(this)">cientos</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="doscientas" data-why="сотни согласуются в роде: personas — ж. р." data-full="En la clase hay doscientas personas." data-trfull="эн ла класэ ай доссьентас пэрсонас"><span class="stmt"><span class="num">6.</span>En la clase hay ___ personas.</span><span class="tf-opts"><button class="tf-btn" data-v="doscientos" onclick="pickTF(this)">doscientos</button><button class="tf-btn" data-v="doscientas" onclick="pickTF(this)">doscientas</button><button class="tf-btn" data-v="dos cientos" onclick="pickTF(this)">dos cientos</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="mil" data-why="1000 — просто mil, без un" data-full="El viaje cuesta mil euros." data-trfull="эль бьяхэ куэста миль эурос"><span class="stmt"><span class="num">7.</span>El viaje cuesta ___ euros.</span><span class="tf-opts"><button class="tf-btn" data-v="un mil" onclick="pickTF(this)">un mil</button><button class="tf-btn" data-v="mil" onclick="pickTF(this)">mil</button><button class="tf-btn" data-v="miles" onclick="pickTF(this)">miles</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="de" data-why="millón / millones + de + существительное" data-full="Madrid tiene más de tres millones de habitantes." data-trfull="мадрид тьенэ мас дэ трэс мийонэс дэ абитантэс"><span class="stmt"><span class="num">8.</span>Madrid tiene más de tres millones ___ habitantes.</span><span class="tf-opts"><button class="tf-btn" data-v="de" onclick="pickTF(this)">de</button><button class="tf-btn" data-v="—" onclick="pickTF(this)">—</button><button class="tf-btn" data-v="y" onclick="pickTF(this)">y</button></span><span class="tf-sol"></span></div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-dark" onclick="checkChoice('ex2','s2')">Comprobar</button>
+    <button class="btn btn-ghost" onclick="resetChoice('ex2','s2')">Reiniciar</button>
+    <span class="score" id="s2"></span>
+  </div>
+
+  </div>
+    </details>
+
+      <details class="acc">
+      <summary><span class="acc-ic acc-n">4</span><span class="acc-tt"><b>¿Con y o sin y?</b><small>Нужна ли y · 6 чисел</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+  <p style="margin:0 0 14px;color:var(--muted)">Нужна ли <b>y</b>? Выбери вариант.</p>
+  <div id="ex3">
+    <div class="tf" data-correct="cincuenta y siete" data-why="y — только между десятками и единицами" data-full="cincuenta y siete" data-trfull="синкуэнта и сьетэ"><span class="stmt"><span class="num">1.</span><b style="color:var(--blue);font-size:18px">57</b></span><span class="tf-opts"><button class="tf-btn" data-v="cincuenta siete" onclick="pickTF(this)">cincuenta siete</button><button class="tf-btn" data-v="cincuenta y siete" onclick="pickTF(this)">cincuenta y siete</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="ciento cinco" data-why="y — только между десятками и единицами" data-full="ciento cinco" data-trfull="сьенто синко"><span class="stmt"><span class="num">2.</span><b style="color:var(--blue);font-size:18px">105</b></span><span class="tf-opts"><button class="tf-btn" data-v="ciento cinco" onclick="pickTF(this)">ciento cinco</button><button class="tf-btn" data-v="ciento y cinco" onclick="pickTF(this)">ciento y cinco</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="ciento cincuenta" data-why="y — только между десятками и единицами" data-full="ciento cincuenta" data-trfull="сьенто синкуэнта"><span class="stmt"><span class="num">3.</span><b style="color:var(--blue);font-size:18px">150</b></span><span class="tf-opts"><button class="tf-btn" data-v="ciento y cincuenta" onclick="pickTF(this)">ciento y cincuenta</button><button class="tf-btn" data-v="ciento cincuenta" onclick="pickTF(this)">ciento cincuenta</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="treinta y tres" data-why="y — только между десятками и единицами" data-full="treinta y tres" data-trfull="трэинта и трэс"><span class="stmt"><span class="num">4.</span><b style="color:var(--blue);font-size:18px">33</b></span><span class="tf-opts"><button class="tf-btn" data-v="treinta y tres" onclick="pickTF(this)">treinta y tres</button><button class="tf-btn" data-v="treintaitrés" onclick="pickTF(this)">treintaitrés</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="doscientos cuarenta y ocho" data-why="y — только между десятками и единицами" data-full="doscientos cuarenta y ocho" data-trfull="доссьентос куарэнта и очо"><span class="stmt"><span class="num">5.</span><b style="color:var(--blue);font-size:18px">248</b></span><span class="tf-opts"><button class="tf-btn" data-v="doscientos cuarenta y ocho" onclick="pickTF(this)">doscientos cuarenta y ocho</button><button class="tf-btn" data-v="doscientos y cuarenta y ocho" onclick="pickTF(this)">doscientos y cuarenta y ocho</button></span><span class="tf-sol"></span></div>
+    <div class="tf" data-correct="mil tres" data-why="y — только между десятками и единицами" data-full="mil tres" data-trfull="миль трэс"><span class="stmt"><span class="num">6.</span><b style="color:var(--blue);font-size:18px">1003</b></span><span class="tf-opts"><button class="tf-btn" data-v="mil y tres" onclick="pickTF(this)">mil y tres</button><button class="tf-btn" data-v="mil tres" onclick="pickTF(this)">mil tres</button></span><span class="tf-sol"></span></div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-dark" onclick="checkChoice('ex3','s3')">Comprobar</button>
+    <button class="btn btn-ghost" onclick="resetChoice('ex3','s3')">Reiniciar</button>
+    <span class="score" id="s3"></span>
+  </div>
+
+  </div>
+    </details>
+
+      <details class="acc">
+      <summary><span class="acc-ic acc-n">5</span><span class="acc-tt"><b>Números grandes</b><small>Прочитай число · 4 числа</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+    <p style="margin:0 0 12px;color:var(--muted)">Прочитай число вслух и проверь себя.</p>
+    <div class="exbox" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px"><b style="color:var(--blue);font-size:20px;min-width:110px">1 999</b><button class="btn btn-ghost" style="padding:7px 14px" onclick="tgl(this,'r0','Mostrar','Ocultar')">Mostrar</button><div class="reveal" id="r0" style="flex-basis:100%;margin:0"><b>mil novecientos noventa y nueve</b> <span class="trn">(миль нобэсьентос нобэнта и нуэвэ)</span></div></div>
+    <div class="exbox" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px"><b style="color:var(--blue);font-size:20px;min-width:110px">2 026</b><button class="btn btn-ghost" style="padding:7px 14px" onclick="tgl(this,'r1','Mostrar','Ocultar')">Mostrar</button><div class="reveal" id="r1" style="flex-basis:100%;margin:0"><b>dos mil veintiséis</b> <span class="trn">(дос миль бэинтисэйс)</span></div></div>
+    <div class="exbox" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px"><b style="color:var(--blue);font-size:20px;min-width:110px">123 456</b><button class="btn btn-ghost" style="padding:7px 14px" onclick="tgl(this,'r2','Mostrar','Ocultar')">Mostrar</button><div class="reveal" id="r2" style="flex-basis:100%;margin:0"><b>ciento veintitrés mil cuatrocientos cincuenta y seis</b> <span class="trn">(сьенто бэинтитрэс миль куатросьентос синкуэнта и сэйс)</span></div></div>
+    <div class="exbox" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px"><b style="color:var(--blue);font-size:20px;min-width:110px">3 500 000</b><button class="btn btn-ghost" style="padding:7px 14px" onclick="tgl(this,'r3','Mostrar','Ocultar')">Mostrar</button><div class="reveal" id="r3" style="flex-basis:100%;margin:0"><b>tres millones quinientos mil</b> <span class="trn">(трэс мийонэс киньентос миль)</span></div></div>
+  </div>
+    </details>
+
+      <details class="acc">
+      <summary><span class="acc-ic acc-n">6</span><span class="acc-tt"><b>En el mercado</b><small>Прочитай и ответь · 1 текст</small></span><span class="chev">+</span></summary>
+      <div class="acc-body">
+    <p class="text-es">Прочитай текст и ответь на вопросы.</p>
+    <p class="text-es" style="margin-top:14px;color:var(--navy);font-weight:600">Un kilo de manzanas cuesta dos euros con cincuenta céntimos. El pan cuesta un euro. En el mercado hay ciento veinte tiendas. Está abierto desde mil novecientos veintiséis.</p>
+    <ol class="text-es" style="margin:14px 0 0;padding-left:22px;line-height:1.8"><li>¿Cuánto cuesta un kilo de manzanas?</li><li>¿Cuántas tiendas hay en el mercado?</li><li>¿Desde qué año está abierto el mercado?</li></ol>
+    <div class="controls"><button class="btn btn-dark" onclick="toggleReveal()">Mostrar las respuestas</button></div>
+    <div class="reveal" id="rev">
+      <b>1. Dos euros con cincuenta (2,50 €).<br>2. Ciento veinte (120).<br>3. Desde mil novecientos veintiséis (1926).</b>
+    </div>
+  </div>
+    </details>
+
+    </div>
+    </section>
+
+    <section class="sec tint c-hablar snap" id="hablar">
+      <div class="sec-label"><span class="sl-n">04</span><span>Hablar</span></div>
+      <h2 class="big">Los números en tu vida</h2>
+      <div class="duo">
+        <div class="card speak">
+    <h3>Números en la vida</h3>
+    <p>Ответь вслух.</p>
+    <div class="qa">
+      <div><div class="es">¿Cuántos años tienes?</div><div class="trn">(куантос аньос тьенэс?)</div><div class="ru">Сколько тебе лет? → Tengo… años (тэнго… аньос).</div></div>
+      <div><div class="es">¿En qué año naciste?</div><div class="trn">(эн кэ аньо насистэ?)</div><div class="ru">В каком году ты родился? → En mil novecientos… (эн миль нобэсьентос…)</div></div>
+      <div><div class="es">¿Cuánto cuesta un café en tu ciudad?</div><div class="trn">(куанто куэста ун кафэ эн ту сьюдад?)</div><div class="ru">Сколько стоит кофе в твоём городе?</div></div>
+      <div><div class="es">¿Cuál es tu número de teléfono?</div><div class="trn">(куаль эс ту нумэро дэ тэлэфоно?)</div><div class="ru">Продиктуй номер по парам цифр.</div></div>
+    </div>
+  </div>
+        <div class="note">
+    <h3>¿Sabías que…?</h3>
+    <p>В Испании <b>c</b> перед e, i и <b>z</b> звучат как английское <b>th</b>: <i>cinco, doce, once</i>. А в Латинской Америке — как обычное <b>с</b>: «синко», «досе». Оба варианта правильные.</p>
+    <p>Цены испанцы часто говорят коротко: <i>dos con cincuenta</i> (дос кон синкуэнта) — два пятьдесят. А на письме вместо точки ставят <b>запятую</b>: 2,50 €.</p>
+  </div>
+      </div>
+      <div class="sum">
+        <div class="sum-top"><span>Итог урока</span><span>Los números · A1</span></div>
+        <div class="sum-row">
+          <div class="sum-k"><span class="sum-n">≈30</span><span class="sum-l">Выучить</span></div>
+          <div class="sum-v"><p>Эти слова нужно знать наизусть — из них собирается всё остальное.</p><div class="sum-chips"><span>0–10</span><span>11–15</span><span>veinte</span><span>7 decenas</span><span>cien · ciento</span><span>quinientos</span><span>setecientos</span><span>novecientos</span><span>mil</span><span>millón</span></div></div>
+        </div>
+        <div class="sum-row">
+          <div class="sum-k"><span class="sum-n">∞</span><span class="sum-l">Собрать</span></div>
+          <div class="sum-v"><p>Все остальные числа — из деталей и четырёх соединителей.</p><div class="sum-chips pink"><span>dieci-</span><span>veinti-</span><span>y</span><span>-cientos</span></div></div>
+        </div>
+        <div class="sum-big">≈30 слов → <span>любое число до миллиона</span></div>
+      </div>
+    </section>
+
+    <div class="footer"><svg class="emp-i" viewBox="0 0 100 62" aria-hidden="true"><use href="#emp"/></svg> che, charlamos?</div>
+  </div>
+</main>
+
+<script>
+  function norm(s){return (s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');}
+
+  function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
+  function initMatch(root){
+    const pairs=JSON.parse(root.dataset.pairs);
+    const colA=root.querySelector('.colA'), colB=root.querySelector('.colB');
+    const countEl=root.querySelector('.count'), winEl=root.querySelector('.win');
+    let selA=null,selB=null,matched=0;
+    function mk(text,key,side,r){const b=document.createElement('button');b.className='tile';b.textContent=text;if(r){const m=document.createElement('small');m.className='mtr';m.textContent='('+r+')';b.appendChild(m);}b.dataset.k=key;b.onclick=()=>pick(b,side);return b;}
+    function build(){
+      matched=0;selA=null;selB=null; if(winEl)winEl.classList.remove('show');
+      countEl.textContent='0 / '+pairs.length; colA.innerHTML='';colB.innerHTML='';
+      shuffle(pairs.map((p,i)=>({t:p[0],k:i,r:p[2]}))).forEach(o=>colA.appendChild(mk(o.t,o.k,'A',o.r)));
+      shuffle(pairs.map((p,i)=>({t:p[1],k:i}))).forEach(o=>colB.appendChild(mk(o.t,o.k,'B')));
+    }
+    function pick(t,side){ if(t.classList.contains('done'))return;
+      if(side==='A'){if(selA)selA.classList.remove('sel');selA=t;} else {if(selB)selB.classList.remove('sel');selB=t;}
+      t.classList.add('sel'); if(selA&&selB)ev(); }
+    function ev(){ const a=selA,b=selB;selA=null;selB=null;
+      if(a.dataset.k===b.dataset.k){a.classList.remove('sel');b.classList.remove('sel');a.classList.add('done');b.classList.add('done');matched++;countEl.textContent=matched+' / '+pairs.length; if(matched===pairs.length&&winEl)winEl.classList.add('show');}
+      else {a.classList.add('bad');b.classList.add('bad');setTimeout(()=>{a.classList.remove('bad','sel');b.classList.remove('bad','sel');},380);} }
+    const r=root.querySelector('.reset'); if(r)r.onclick=build;
+    build();
+  }
+  document.querySelectorAll('.match-game').forEach(initMatch);
+
+  function check(boxId,scoreId){
+    const box=document.getElementById(boxId);
+    const inputs=box.querySelectorAll('input.blank'); let ok=0;
+    inputs.forEach(inp=>{
+      const accepted=(inp.dataset.a||'').split(',').map(norm); const val=norm(inp.value);
+      inp.classList.remove('ok','no'); const sol=inp.parentElement.querySelector('.sol');
+      if(val&&accepted.includes(val)){inp.classList.add('ok');ok++;if(sol){sol.classList.remove('show');sol.textContent='';}}
+      else{inp.classList.add('no');if(sol){sol.textContent='→ '+inp.dataset.a.split(',')[0];sol.classList.add('show');}}
+    });
+    const sc=document.getElementById(scoreId); sc.textContent=ok+' / '+inputs.length+' correctas'; sc.classList.add('show');
+  }
+  function reset(boxId,scoreId){
+    const box=document.getElementById(boxId);
+    box.querySelectorAll('input.blank').forEach(inp=>{inp.value='';inp.classList.remove('ok','no');});
+    box.querySelectorAll('.sol').forEach(s=>{s.classList.remove('show');s.textContent='';});
+    document.getElementById(scoreId).classList.remove('show');
+  }
+
+  function toggleReveal(){ const r=document.getElementById('rev'); r.classList.toggle('show'); event.target.textContent=r.classList.contains('show')?'Ocultar':'Mostrar las respuestas'; }
+  function tgl(btn,id,a,b){ const r=document.getElementById(id); const on=r.classList.toggle('show'); btn.textContent=on?b:a; }
+
+  function pickTF(btn){ const row=btn.closest('.tf'); row.querySelectorAll('.tf-btn').forEach(x=>x.classList.remove('sel')); btn.classList.add('sel'); }
+  function checkTF(boxId,scoreId){
+    const box=document.getElementById(boxId); let ok=0,tot=0;
+    box.querySelectorAll('.tf').forEach(row=>{ tot++; const correct=row.dataset.correct; const sel=row.querySelector('.tf-btn.sel');
+      row.querySelectorAll('.tf-btn').forEach(x=>x.classList.remove('good','bad2'));
+      const sol=row.querySelector('.tf-sol');
+      if(sel&&sel.dataset.v===correct){sel.classList.add('good');ok++; if(sol){sol.textContent='✓ ¡Correcto!';sol.className='tf-sol ok';}}
+      else{ if(sel)sel.classList.add('bad2'); const right=row.querySelector('.tf-btn[data-v=\"'+correct+'\"]'); if(right)right.classList.add('good'); if(sol){sol.textContent='Respuesta correcta: '+(correct==='si'?'Sí':'No');sol.className='tf-sol no2';}}
+    });
+    const s=document.getElementById(scoreId); s.textContent=ok+' / '+tot+' correctas'; s.classList.add('show');
+  }
+  function resetTF(boxId,scoreId){
+    const box=document.getElementById(boxId);
+    box.querySelectorAll('.tf-btn').forEach(x=>x.classList.remove('sel','good','bad2'));
+    box.querySelectorAll('.tf-sol').forEach(s=>{s.textContent='';s.className='tf-sol';});
+    document.getElementById(scoreId).classList.remove('show');
+  }
+  function artLabel(v){return v==='-'?'— (sin artículo)':v;}
+  function checkChoice(boxId,scoreId){
+    const box=document.getElementById(boxId); let ok=0,tot=0;
+    box.querySelectorAll('.tf').forEach(row=>{ tot++; const correct=row.dataset.correct; const sel=row.querySelector('.tf-btn.sel');
+      row.querySelectorAll('.tf-btn').forEach(x=>x.classList.remove('good','bad2'));
+      const sol=row.querySelector('.tf-sol');
+      if(sel&&sel.dataset.v===correct){sel.classList.add('good');ok++;if(sol){sol.textContent='✓ ¡Correcto!'+(row.dataset.why?' · '+row.dataset.why:'');sol.className='tf-sol ok';}}
+      else{ if(sel)sel.classList.add('bad2'); const right=row.querySelector('.tf-btn[data-v="'+correct+'"]'); if(right)right.classList.add('good'); if(sol){sol.textContent='Respuesta correcta: '+artLabel(correct)+(row.dataset.why?' · '+row.dataset.why:'');sol.className='tf-sol no2';}}
+    });
+    const s=document.getElementById(scoreId); s.textContent=ok+' / '+tot+' correctas'; s.classList.add('show');
+  }
+  function resetChoice(boxId,scoreId){ resetTF(boxId,scoreId); }
+</script>
+<script>
+/* ---- произношение ---- */
+function say(){}
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.hide .t, .hide .rw'); if(c) c.classList.toggle('peek');
+});
+function hideWords(btn,id){ const g=document.getElementById(id); const on=g.classList.toggle('hide'); g.querySelectorAll('.peek').forEach(x=>x.classList.remove('peek')); btn.textContent=on?'Показать слова':'Скрыть слова'; }
+
+/* ---- конструктор ---- */
+const BASE=[['cero','сэро'],['uno','уно'],['dos','дос'],['tres','трэс'],['cuatro','куатро'],['cinco','синко'],['seis','сэйс'],['siete','сьетэ'],['ocho','очо'],['nueve','нуэвэ'],['diez','дьес']];
+const TEEN={11:['once','онсэ'],12:['doce','досэ'],13:['trece','трэсэ'],14:['catorce','каторсэ'],15:['quince','кинсэ']};
+const TENS={3:['treinta','трэинта'],4:['cuarenta','куарэнта'],5:['cincuenta','синкуэнта'],6:['sesenta','сэсэнта'],7:['setenta','сэтэнта'],8:['ochenta','очэнта'],9:['noventa','нобэнта']};
+const ACC={2:'dós',3:'trés',6:'séis'};
+const IRR={5:['quinientos','киньентос'],7:['setecientos','сэтэсьентос'],9:['novecientos','нобэсьентос']};
+// piece: [text, tr, kind(b|n|p), joinWithPrev]
+function under100(r){
+  if(r<=10) return {p:[[BASE[r][0],BASE[r][1],'b']],why:'Деталь-база: просто запоминаем.'};
+  if(r<=15) return {p:[[TEEN[r][0],TEEN[r][1],'n']],why:'Новое слово на -ce: запоминаем.'};
+  const u=r%10, t=Math.floor(r/10);
+  if(r<20) return {p:[['dieci','дьеси','p'],[u===6?'séis':BASE[u][0],BASE[u][1],'b',1]],why:'dieci + число из базы, одним словом.'};
+  if(r===20) return {p:[['veinte','бэинтэ','n']],why:'Новое слово: запоминаем.'};
+  if(r<30) return {p:[['veinti','бэинти','p'],[ACC[u]||BASE[u][0],BASE[u][1],'b',1]],why:'veinti + число из базы, одним словом.'};
+  if(u===0) return {p:[[TENS[t][0],TENS[t][1],'n']],why:'Десяток на -nta: запоминаем.'};
+  return {p:[[TENS[t][0],TENS[t][1],'n'],['y','и','p'],[BASE[u][0],BASE[u][1],'b']],why:'десяток + y + база, тремя словами.'};
+}
+function build(n){
+  const h=Math.floor(n/100), r=n%100; let parts=[], why=[];
+  if(h){
+    if(h===1){ parts.push([r?'ciento':'cien',r?'сьенто':'сьен','n']); why.push(r?'101–199 → ciento.':'Ровно сто → cien.'); }
+    else if(IRR[h]){ parts.push([IRR[h][0],IRR[h][1],'n']); why.push('Сотня-исключение: запоминаем.'); }
+    else { parts.push([BASE[h][0],BASE[h][1],'b'],['cientos','сьентос','p',1]); why.push('база + cientos.'); }
+    if(r){ const x=under100(r); parts=parts.concat(x.p); why.push('Остаток '+r+': '+x.why+' Между сотней и остатком y нет.'); }
+  } else { const x=under100(r); parts=x.p; why.push(x.why); }
+  return {parts,why:why.join(' ')};
+}
+function render(parts){
+  let html='',tr='',txt='';
+  parts.forEach((p,i)=>{ const sp=(i&&!p[3])?' ':''; html+=sp+'<span class="c'+p[2]+'">'+p[0]+'</span>'; tr+=sp+p[1]; txt+=sp+p[0]; });
+  return {html,tr,txt};
+}
+const st={h:0,t:4,u:7};
+function upd(){
+  const n=st.h*100+st.t*10+st.u, b=build(n), r=render(b.parts);
+  document.getElementById('b-num').textContent=n;
+  document.getElementById('b-word').innerHTML=r.html;
+  document.getElementById('b-tr').textContent='('+r.tr+')';
+  document.getElementById('b-why').textContent=b.why;
+  
+  document.querySelectorAll('.keys').forEach(k=>k.querySelectorAll('.key').forEach(x=>x.classList.toggle('on',+x.dataset.v===st[k.dataset.k])));
+}
+document.querySelectorAll('.keys').forEach(k=>{
+  const kind=k.dataset.k;
+  for(let i=0;i<10;i++){ const b=document.createElement('button'); b.className='key'; b.dataset.v=i; b.textContent=kind==='h'?(i*100):kind==='t'?(i*10):i; b.setAttribute('aria-label',(kind==='h'?'centenas ':kind==='t'?'decenas ':'unidades ')+i);
+    b.onclick=()=>{st[kind]=i;upd();}; k.appendChild(b); }
+});
+
+upd();
+
+/* ---- собери из деталей ---- */
+const TASKS=[
+  [16,['dieci','séis'],['seis','diez','y']],
+  [24,['veinti','cuatro'],['veinte','y','catorce']],
+  [35,['treinta','y','cinco'],['trece','quince']],
+  [47,['cuarenta','y','siete'],['catorce','setenta']],
+  [68,['sesenta','y','ocho'],['setenta','dieci']],
+  [105,['ciento','cinco'],['cien','y']],
+  [250,['dos','cientos','cincuenta'],['y','cien']],
+  [512,['quinientos','doce'],['cinco','cientos','y']]
+];
+const PREF=['dieci','veinti','dos'];
+let ti=0,pickd=[],score=0,checked=false;
+function joinW(arr){ let s=''; arr.forEach((w,i)=>{ const prev=arr[i-1]; const glue=i&&(prev==='dieci'||prev==='veinti'||(w==='cientos'));s+=(i&&!glue?' ':'')+w; }); return s; }
+function gShow(){
+  const fb=document.getElementById('g-fb'); fb.textContent='';fb.className='bg-fb';
+  document.getElementById('g-next').hidden=true; document.getElementById('g-check').hidden=false; checked=false;
+  if(ti>=TASKS.length){
+    document.getElementById('g-round').textContent='Resultado';
+    document.getElementById('g-target').textContent=score+' / '+TASKS.length;
+    document.getElementById('g-slot').innerHTML='<span>'+(score>=6?'¡Genial!':'¡Bien! Inténtalo otra vez')+'</span>';
+    document.getElementById('g-pieces').innerHTML='';
+    document.getElementById('g-check').hidden=true;
+    const nx=document.getElementById('g-next'); nx.hidden=false; nx.textContent='Empezar de nuevo'; return;
+  }
+  pickd=[]; const [n,ans,dis]=TASKS[ti];
+  document.getElementById('g-round').textContent='Número '+(ti+1)+' de '+TASKS.length;
+  document.getElementById('g-target').textContent=n;
+  const box=document.getElementById('g-pieces'); box.innerHTML='';
+  shuffle(ans.concat(dis)).forEach(w=>{ const b=document.createElement('button'); b.className='piece'; b.textContent=w; b.onclick=()=>{ if(checked)return; pickd.push({w,b}); b.disabled=true; slot(); }; box.appendChild(b); });
+  slot();
+}
+const KP=['dieci','veinti','y','cientos'], KB=['uno','dos','tres','cuatro','cinco','seis','séis','siete','ocho','nueve','diez'];
+function kind(w){ return KP.includes(w)?'k-p':KB.includes(w)?'k-b':'k-n'; }
+function words(){ return pickd.map(x=>x.w); }
+function slot(){
+  const s=document.getElementById('g-slot'); s.className='slot';
+  if(!pickd.length){ s.innerHTML='<span class="ph">Нажимай детали снизу — они появятся здесь</span>'; return; }
+  s.innerHTML='';
+  const row=document.createElement('div'); row.className='chips';
+  const ws=words();
+  pickd.forEach((x,i)=>{
+    const prev=ws[i-1], glue=i&&(prev==='dieci'||prev==='veinti'||x.w==='cientos');
+    const c=document.createElement('button'); c.className='chip '+kind(x.w)+(glue?' glue':''); c.textContent=x.w;
+    c.title='Quitar pieza'; c.disabled=checked;
+    c.onclick=()=>{ if(checked)return; x.b.disabled=false; pickd.splice(i,1); slot(); };
+    row.appendChild(c);
+  });
+  s.appendChild(row);
+  const sw=document.createElement('div'); sw.className='sw'; sw.innerHTML='= <b>'+joinW(ws)+'</b>'; s.appendChild(sw);
+}
+let results=[];
+document.getElementById('g-clear').onclick=()=>{ if(ti>=TASKS.length)return; checked=false; pickd=[]; document.querySelectorAll('#g-pieces .piece').forEach(b=>b.disabled=false); slot(); const fb=document.getElementById('g-fb'); fb.textContent=''; fb.className='bg-fb'; document.getElementById('g-check').hidden=false; document.getElementById('g-next').hidden=true; };
+document.getElementById('g-check').onclick=()=>{
+  if(!pickd.length||checked)return; checked=true;
+  const [n,ans]=TASKS[ti]; const ok=joinW(words())===joinW(ans);
+  const s=document.getElementById('g-slot'), fb=document.getElementById('g-fb');
+  results[ti]=ok; score=results.filter(Boolean).length;
+  if(ok){ s.classList.add('ok'); fb.textContent='✓ ¡Muy bien!'; fb.className='bg-fb ok';}
+  else{ s.classList.add('no'); fb.textContent='Respuesta correcta: '+joinW(ans); fb.className='bg-fb no'; }
+  s.querySelectorAll('.chip').forEach(c=>c.disabled=true);
+  document.getElementById('g-check').hidden=true;
+  const nx=document.getElementById('g-next'); nx.hidden=false; nx.textContent=ti+1>=TASKS.length?'Ver resultado':'Siguiente número →';
+};
+document.getElementById('g-next').onclick=()=>{ if(ti>=TASKS.length){ti=0;score=0;results=[];} else ti++; gShow(); };
+gShow();
+
+/* ---- транскрипция в упражнениях ---- */
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function spBtn(t){return '';}
+const _check=check;
+check=function(boxId,scoreId){
+  _check(boxId,scoreId);
+  document.getElementById(boxId).querySelectorAll('input.blank').forEach(inp=>{
+    const sol=inp.parentElement.querySelector('.sol'); if(!sol)return;
+    const ans=inp.dataset.a.split(',')[0], ok=inp.classList.contains('ok');
+    sol.innerHTML=(ok?'✓ ':'→ '+esc(ans)+' ')+'<span class="trn">('+esc(inp.dataset.tr||'')+')</span> '+spBtn(ans);
+    sol.classList.add('show'); sol.classList.toggle('bad',!ok);
+  });
+};
+const _checkChoice=checkChoice;
+checkChoice=function(boxId,scoreId){
+  _checkChoice(boxId,scoreId);
+  document.getElementById(boxId).querySelectorAll('.tf').forEach(row=>{
+    const sol=row.querySelector('.tf-sol'); if(!sol||!row.dataset.full)return;
+    const d=document.createElement('span'); d.className='tf-full';
+    d.innerHTML='<b>'+esc(row.dataset.full)+'</b> <span class="trn">('+esc(row.dataset.trfull)+')</span> '+spBtn(row.dataset.full);
+    sol.appendChild(d);
+  });
+};
+const _pickTF=pickTF;
+
+</script>
+
+<script>
+(function(){
+  const tabs=[...document.querySelectorAll('.tab')], panels=[...document.querySelectorAll('.panel')];
+  const prev=document.getElementById('pg-prev'), next=document.getElementById('pg-next'), prog=document.getElementById('prog');
+  const R=['0–10','11–15','16–29','30–99','100–900','1000+']; let cur=0;
+  function show(i,scroll){
+    cur=i;
+    tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1;});
+    panels.forEach((p,k)=>p.hidden=k!==i);
+    prog.style.width=((i+1)/tabs.length*100)+'%';
+    prev.disabled=i===0;
+    next.textContent=i<tabs.length-1?'Siguiente: '+R[i+1]+' →':'Canción para recordar →';
+    if(scroll!==undefined){const tb=document.querySelector('.tabs');tb.scrollTo({left:tabs[i].offsetLeft-tb.clientWidth/2+tabs[i].clientWidth/2,behavior:'smooth'});}
+    if(scroll)document.getElementById('teoria').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  tabs.forEach((t,k)=>t.onclick=()=>show(k,false));
+  document.querySelector('.tabs').addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'&&cur<tabs.length-1){show(cur+1);tabs[cur].focus();}
+    if(e.key==='ArrowLeft'&&cur>0){show(cur-1);tabs[cur].focus();}
+  });
+  prev.onclick=()=>{if(cur>0)show(cur-1,true);};
+  next.onclick=()=>{if(cur<tabs.length-1)show(cur+1,true);else document.getElementById('cancion').scrollIntoView({behavior:'smooth'});};
+  show(0);
+})();
+</script>
+
+<script>
+/* scroll-reveal: блоки плавно появляются при входе в экран и уходят вверх при выходе */
+(function(){
+  const sel=['.hero2 > div','.hero-strip figure','.sec-label','h2.big','.sub2','.hcard','.rd','.rules','.legend-row','.step-head','.rule','.t','.rw','.formula','.takeaway','.meme','.emp-head','.ec','.emp-fact','.vcard','.gcard','.ghint','.acc','.card','.builder','.bio','.note','.resumen','.sum-row','.sum-big','.duo > *','.conj','.tiles','.qa > div'];
+  const els=[...new Set(document.querySelectorAll(sel.join(',')))].filter(e=>!e.closest('.tabs')&&!e.closest('.rv'));
+  els.forEach(e=>{
+    e.classList.add('rv');
+    const sib=[...e.parentElement.children].filter(x=>x.matches(sel.join(',')));
+    const k=sib.indexOf(e); if(k>0) e.style.setProperty('--d',(Math.min(k,6)*70)+'ms');
+  });
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      const e=en.target;
+      if(en.isIntersecting){e.classList.add('in');e.classList.remove('out');}
+      else if(en.boundingClientRect.bottom<=0){e.classList.remove('in');e.classList.add('out');}
+      else{e.classList.remove('in','out');}
+    });
+  },{rootMargin:'-56px 0px -6% 0px',threshold:0});
+  els.forEach(e=>io.observe(e));
+})();
+</script>
+</body>
+</html>
